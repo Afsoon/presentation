@@ -5,14 +5,13 @@ import { flushSync } from "react-dom";
 
 import { Button } from "@/components/ui/button";
 import type { SlideDirection } from "@/stores/slide-store";
-import { getAvailableSubslideControls } from "@/stores/subslide-controls";
-import { useSlides, useSubslideControls } from "@/stores/use-slides";
+import { useSlides } from "@/stores/use-slides";
+import { useSubslideControls } from "@/stores/use-subslide-controls";
 
 export const KeyboardNavigation = () => {
 	const { snapshot, navigate } = useSlides();
 	const { availableNavigations } = snapshot;
-	const subslideSnapshot = useSubslideControls();
-	const subslideControls = getAvailableSubslideControls(subslideSnapshot, snapshot.currentSlide);
+	const { canGoUp, canGoDown, up, down } = useSubslideControls(snapshot.currentSlide.Id);
 
 	const handleNavigation = (direction: SlideDirection) => {
 		if (!availableNavigations[direction]) return;
@@ -38,6 +37,19 @@ export const KeyboardNavigation = () => {
 		stopPropagation: false,
 	});
 
+	useHotkey("ArrowUp", up, {
+		enabled: canGoUp,
+		ignoreInputs: true,
+		ignoreDefaultPrevented: true,
+		stopPropagation: false,
+	});
+	useHotkey("ArrowDown", down, {
+		enabled: canGoDown,
+		ignoreInputs: true,
+		ignoreDefaultPrevented: true,
+		stopPropagation: false,
+	});
+
 	return (
 		<nav
 			aria-label="Slide navigation"
@@ -49,8 +61,8 @@ export const KeyboardNavigation = () => {
 				variant="ghost"
 				size="icon"
 				className="col-start-2"
-				onClick={() => subslideControls?.up?.()}
-				disabled={!subslideControls?.canGoUp}
+				onClick={() => up()}
+				disabled={!canGoUp}
 			>
 				<ChevronUp aria-hidden="true" strokeWidth={3} className="size-[42px] drop-shadow-sm drop-shadow-black/50" />
 				<span className="sr-only">Go to previous subslide</span>
@@ -85,8 +97,8 @@ export const KeyboardNavigation = () => {
 				variant="ghost"
 				size="icon"
 				className="col-start-2 row-start-3"
-				onClick={() => subslideControls?.down?.()}
-				disabled={!subslideControls?.canGoDown}
+				onClick={() => down()}
+				disabled={!canGoDown}
 			>
 				<ChevronDown aria-hidden="true" strokeWidth={3} className="size-[42px] drop-shadow-sm drop-shadow-black/50" />
 				<span className="sr-only">Go to next subslide</span>

@@ -1,39 +1,29 @@
-import type { SlideMetadata } from "@/slides/types";
+import type { ActorRefFrom } from "xstate";
 
-export type SubslideControls = {
-	Id: string;
-	up: (() => void) | null;
-	down: (() => void) | null;
-};
-export type SubslideControlsSnapshot = SubslideControls & { canGoUp: boolean; canGoDown: boolean };
+import type { tableOfContentsMachine } from "@/slides/slide_2_table_of_content/slide_2_table_of_content.machine";
+import type { reasonsMachine } from "@/slides/slide_5_reasons_for_building_pgtest/slide_5_reasons_for_building_pgtest.machine";
 
-export function getAvailableSubslideControls<T extends { Id: string }>(controls: T | null, slide: SlideMetadata) {
-	return slide.hasSubslides && controls?.Id === slide.Id ? controls : null;
-}
+type SlideActor = ActorRefFrom<typeof tableOfContentsMachine> | ActorRefFrom<typeof reasonsMachine>;
 
 export function createSubslideControlsStore() {
-	let snapshot: SubslideControlsSnapshot | null = null;
-	let initialized = false;
-	const listeners = new Set<() => void>();
-	const emit = () => listeners.forEach((listener) => listener());
-
+	const actors = new Map<string, SlideActor>();
+	const actorListeners = new Set<() => void>();
 	return {
-		getSnapshot: () => snapshot,
-		getServerSnapshot: () => null,
-		hydrate: (initial: SubslideControlsSnapshot) => {
-			if (initialized) return;
-			initialized = true;
-			if (!snapshot) snapshot = initial;
-		},
-		subscribe: (listener: () => void) => {
-			listeners.add(listener);
+		getActor: (id: string) => actors.get(id),
+		subscribeActors: (listener: () => void) => {
+			actorListeners.add(listener);
 			return () => {
-				listeners.delete(listener);
+				actorListeners.delete(listener);
 			};
 		},
-		updateSubslidesControl: (controls: SubslideControls | null) => {
-			snapshot = controls ? { ...controls, canGoUp: !!controls.up, canGoDown: !!controls.down } : null;
-			emit();
+		registerActor: (actor: SlideActor) => {
+			actors.set(actor.id, actor);
+			actorListeners.forEach((listener) => listener());
+			return () => {
+				if (actors.get(actor.id) !== actor) return;
+				actors.delete(actor.id);
+				actorListeners.forEach((listener) => listener());
+			};
 		},
 	};
 }

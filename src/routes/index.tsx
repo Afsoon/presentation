@@ -22,7 +22,6 @@ function Home() {
 	const { snapshot } = useSlides();
 	// Defer rendering so synchronous store updates can activate React ViewTransitions.
 	const { currentSlide } = useDeferredValue(snapshot);
-
 	return (
 		<main
 			id="presentation"

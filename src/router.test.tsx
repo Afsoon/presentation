@@ -26,11 +26,24 @@ describe("slide route search", () => {
 		expect(html).not.toContain("Why am I building it?");
 		const buttons = html.match(/<button\b[^>]*>[\s\S]*?<\/button>/g) ?? [];
 		expect(buttons.find((button) => button.includes("Go to previous subslide"))).toContain('disabled=""');
-		expect(buttons.find((button) => button.includes("Go to next subslide"))).not.toContain('disabled=""');
+		expect(buttons.find((button) => button.includes("Go to next subslide"))).toContain('disabled=""');
 		// Firefox must not restore a previous disabled state before React hydrates.
 		const navigationButtons = buttons.filter((button) => /Go to (previous|next) (subslide|slide)/.test(button));
 		expect(navigationButtons).toHaveLength(4);
 		for (const button of navigationButtons) expect(button).toContain('autoComplete="off"');
+	});
+
+	it.each([
+		{ id: "reasons-for-building-pgtest", content: "Isolating tests with transactions" },
+		{ id: "title", content: "" },
+	])("disables subslide controls before actor registration for $id", async ({ id, content }) => {
+		const router = await loadRouter(`/?slide=${id}`);
+		const html = renderToString(<RouterProvider router={router} />);
+		expect(html).toContain(content);
+		const buttons = html.match(/<button\b[^>]*>[\s\S]*?<\/button>/g) ?? [];
+		expect(buttons.find((button) => button.includes("Go to previous subslide"))).toContain('disabled=""');
+		const down = buttons.find((button) => button.includes("Go to next subslide"));
+		expect(down).toContain('disabled=""');
 	});
 
 	it("initializes isolated server requests from their URLs", async () => {
@@ -42,7 +55,6 @@ describe("slide route search", () => {
 		const secondData = second.state.matches.at(-1)?.loaderData as ReturnType<typeof getInitialPresentationState>;
 		expect(firstData.slide.currentSlide.Id).toBe("table-of-contents");
 		expect(secondData.slide.currentSlide.Id).toBe("reasons-for-building-pgtest");
-		expect(firstData.subslideControls).toMatchObject({ canGoUp: false, canGoDown: true });
 		expect(renderToString(<RouterProvider router={first} />)).toContain('aria-label="Table of contents"');
 	});
 });

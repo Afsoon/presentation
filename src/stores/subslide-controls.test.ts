@@ -1,37 +1,43 @@
 import { describe, expect, it, vi } from "vite-plus/test";
+import { createActor } from "xstate";
 
-import { createSubslideControlsStore, getAvailableSubslideControls } from "./subslide-controls";
+import { tableOfContentsMachine } from "@/slides/slide_2_table_of_content/slide_2_table_of_content.machine";
 
-const slide = { Id: "contents", name: "Contents", hasSubslides: true };
+import { createSlideStore } from "./slide-store";
+import { createSubslideControlsStore } from "./subslide-controls";
 
-describe("subslide controls", () => {
-	it("updates and clears button controls while keeping the server snapshot empty", () => {
+describe("subslide controls store", () => {
+	it("looks up the current slide actor by ID without sharing actors between stores", () => {
 		const store = createSubslideControlsStore();
+		const other = createSubslideControlsStore();
+		const actor = createActor(tableOfContentsMachine, { id: "table-of-contents" }).start();
 		const listener = vi.fn();
-		const unsubscribe = store.subscribe(listener);
-		const first = { Id: slide.Id, up: null, down: vi.fn() };
-		expect(store.getSnapshot()).toBeNull();
-		store.updateSubslidesControl(first);
-		expect(store.getSnapshot()).toEqual({ ...first, canGoUp: false, canGoDown: true });
-		expect(store.getServerSnapshot()).toBeNull();
-		const last = { Id: slide.Id, up: vi.fn(), down: null };
-		store.updateSubslidesControl(last);
-		expect(store.getSnapshot()).toEqual({ ...last, canGoUp: true, canGoDown: false });
-		expect(first.down).not.toHaveBeenCalled();
-		expect(last.up).not.toHaveBeenCalled();
-		store.updateSubslidesControl(null);
-		expect(store.getSnapshot()).toBeNull();
-		expect(listener).toHaveBeenCalledTimes(3);
+		const unsubscribe = store.subscribeActors(listener);
+		const unregister = store.registerActor(actor);
+		const slides = createSlideStore();
+		slides.goToSlide("table-of-contents");
+		expect(store.getActor(slides.getSnapshot().currentSlide.Id)).toBe(actor);
+		store.getActor(slides.getSnapshot().currentSlide.Id)?.send({ type: "NEXT" });
+		expect(actor.getSnapshot().value).toBe("whyBuildIt");
+		expect(other.getActor(actor.id)).toBeUndefined();
+		slides.goToSlide("title");
+		expect(store.getActor(slides.getSnapshot().currentSlide.Id)).toBeUndefined();
+		unregister();
+		expect(store.getActor(actor.id)).toBeUndefined();
+		expect(listener).toHaveBeenCalledTimes(2);
 		unsubscribe();
-		store.updateSubslidesControl(first);
-		expect(listener).toHaveBeenCalledTimes(3);
+		actor.stop();
 	});
 
-	it("only exposes controls belonging to the current slide with subslides", () => {
-		const controls = { Id: slide.Id, up: null, down: vi.fn() };
-		expect(getAvailableSubslideControls(controls, slide)).toBe(controls);
-		expect(getAvailableSubslideControls(null, slide)).toBeNull();
-		expect(getAvailableSubslideControls(controls, { ...slide, Id: "other" })).toBeNull();
-		expect(getAvailableSubslideControls(controls, { ...slide, hasSubslides: false })).toBeNull();
+	it("does not remove a replacement actor when an older registration cleans up", () => {
+		const store = createSubslideControlsStore();
+		const first = createActor(tableOfContentsMachine, { id: "table-of-contents" });
+		const second = createActor(tableOfContentsMachine, { id: "table-of-contents" });
+		const removeFirst = store.registerActor(first);
+		const removeSecond = store.registerActor(second);
+		removeFirst();
+		expect(store.getActor(second.id)).toBe(second);
+		removeSecond();
+		expect(store.getActor(second.id)).toBeUndefined();
 	});
 });

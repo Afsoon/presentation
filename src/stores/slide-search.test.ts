@@ -18,16 +18,10 @@ function mockBrowser(href: string) {
 }
 
 describe("slide URL initialization", () => {
-	it("provides serializable initial controls for every slide", () => {
+	it("provides serializable initial state for every slide", () => {
 		for (const slide of getInitialPresentationState("").slide.slides) {
 			const initial = getInitialPresentationState(`?slide=${slide.Id}`);
-			expect(initial.subslideControls).toEqual({
-				Id: slide.Id,
-				canGoUp: false,
-				canGoDown: slide.hasSubslides,
-				up: null,
-				down: null,
-			});
+			expect(initial.slide.currentSlide.Id).toBe(slide.Id);
 			expect(JSON.parse(JSON.stringify(initial))).toEqual(initial);
 		}
 	});
