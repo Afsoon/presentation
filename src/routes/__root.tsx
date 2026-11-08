@@ -15,7 +15,7 @@ export const Route = createRootRoute({
 				content: "width=device-width, initial-scale=1",
 			},
 			{
-				title: "TanStack Start Starter",
+				title: "Tech presentation",
 			},
 		],
 		links: [
@@ -38,7 +38,7 @@ function RootDocument({ children }: { children: React.ReactNode }) {
 				{children}
 				<TanStackDevtools
 					config={{
-						position: "bottom-right",
+						position: "top-right",
 					}}
 					plugins={[
 						{

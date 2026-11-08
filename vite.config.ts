@@ -5,7 +5,7 @@ import { tanstackStart } from "@tanstack/react-start/plugin/vite";
 import viteReact from "@vitejs/plugin-react";
 import { defineConfig, lazyPlugins } from "vite-plus";
 
-const config = defineConfig({
+const config = defineConfig(({ mode }) => ({
 	staged: {
 		"*": "vp check --fix",
 	},
@@ -20,13 +20,12 @@ const config = defineConfig({
 		options: { typeAware: true, typeCheck: true },
 	},
 	resolve: { tsconfigPaths: true },
-	plugins: lazyPlugins(() => [
-		devtools(),
-		cloudflare({ viteEnvironment: { name: "ssr" } }),
-		tailwindcss(),
-		tanstackStart(),
-		viteReact(),
-	]),
-});
+	// Store unit tests run in Node without starting the app's Cloudflare runtime.
+	plugins: lazyPlugins(() =>
+		mode === "test"
+			? []
+			: [devtools(), cloudflare({ viteEnvironment: { name: "ssr" } }), tailwindcss(), tanstackStart(), viteReact()],
+	),
+}));
 
 export default config;

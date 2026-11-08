@@ -18,6 +18,8 @@ peerDependencyRules:
 permissions:
   "@tanstack/devtools-vite":
     skills: true
+  "@tanstack/react-hotkeys":
+    skills: true
   "@tanstack/react-router":
     skills: [react-router]
   "@tanstack/react-start":
