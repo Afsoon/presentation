@@ -1,10 +1,13 @@
+import { metadata as titleMetadata } from "@/slides/slide_1_title";
+import { metadata as tableOfContentsMetadata } from "@/slides/slide_2_table_of_content";
+import { metadata as whatIsPgtestMetadata } from "@/slides/slide_3_what_is_pgtest";
+import { metadata as whyAmIBuildingItMetadata } from "@/slides/slide_4_why_am_i_building_it";
+import { metadata as reasonsForBuildingPgtestMetadata } from "@/slides/slide_5_reasons_for_building_pgtest";
+import type { SlideMetadata } from "@/slides/types";
+
 export type SlideDirection = "left" | "right";
 
-export type Slide = Readonly<{
-	id: string;
-	name: string;
-	position: number;
-}>;
+export type Slide = Readonly<SlideMetadata & { position: number }>;
 
 export type SlideInitialState = Readonly<{
 	slides: readonly Slide[];
@@ -23,9 +26,11 @@ export type SlideSnapshot = Readonly<{
 
 export const defaultSlideState: SlideInitialState = {
 	slides: [
-		{ id: "title", name: "Tech presentation", position: 0 },
-		{ id: "table-of-contents", name: "Table of contents", position: 1 },
-		{ id: "what-is-pgtest", name: "What is pgtest?", position: 2 },
+		{ ...titleMetadata, position: 0 },
+		{ ...tableOfContentsMetadata, position: 1 },
+		{ ...whatIsPgtestMetadata, position: 2 },
+		{ ...whyAmIBuildingItMetadata, position: 3 },
+		{ ...reasonsForBuildingPgtestMetadata, position: 4 },
 	],
 	currentPosition: 0,
 	direction: null,
@@ -35,7 +40,7 @@ export function createSlideStore(initialState: SlideInitialState = defaultSlideS
 	if (initialState.slides.length === 0) {
 		throw new Error("The presentation needs at least one slide.");
 	}
-	if (new Set(initialState.slides.map((slide) => slide.id)).size !== initialState.slides.length) {
+	if (new Set(initialState.slides.map((slide) => slide.Id)).size !== initialState.slides.length) {
 		throw new Error("Slide IDs must be unique.");
 	}
 	if (

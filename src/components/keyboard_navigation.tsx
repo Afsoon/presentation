@@ -1,15 +1,22 @@
 import { useHotkey } from "@tanstack/react-hotkeys";
 import { ChevronDown, ChevronUp, ChevronRight, ChevronLeft } from "lucide-react";
-import { addTransitionType, startTransition } from "react";
+import { addTransitionType, startTransition, useSyncExternalStore } from "react";
 import { flushSync } from "react-dom";
 
 import { Button } from "@/components/ui/button";
 import type { SlideDirection } from "@/stores/slide-store";
+import { getAvailableSubslideControls, subslideControlsStore } from "@/stores/subslide-controls";
 import { useSlides } from "@/stores/use-slides";
 
 export const KeyboardNavigation = () => {
 	const { snapshot, navigate } = useSlides();
 	const { availableNavigations } = snapshot;
+	const subslideSnapshot = useSyncExternalStore(
+		subslideControlsStore.subscribe,
+		subslideControlsStore.getSnapshot,
+		subslideControlsStore.getServerSnapshot,
+	);
+	const subslideControls = getAvailableSubslideControls(subslideSnapshot, snapshot.currentSlide);
 
 	const handleNavigation = (direction: SlideDirection) => {
 		if (!availableNavigations[direction]) return;
@@ -40,7 +47,14 @@ export const KeyboardNavigation = () => {
 			aria-label="Slide navigation"
 			className="absolute z-10 bottom-4 right-4 grid grid-cols-3 grid-rows-3 gap-4 size-[140px]"
 		>
-			<Button type="button" variant="ghost" size="icon" className="col-start-2" disabled>
+			<Button
+				type="button"
+				variant="ghost"
+				size="icon"
+				className="col-start-2"
+				onClick={() => subslideControls?.up?.()}
+				disabled={!subslideControls?.up}
+			>
 				<ChevronUp aria-hidden="true" strokeWidth={3} className="size-[42px] drop-shadow-sm drop-shadow-black/50" />
 				<span className="sr-only">Go to previous subslide</span>
 			</Button>
@@ -66,7 +80,14 @@ export const KeyboardNavigation = () => {
 				<ChevronRight aria-hidden="true" strokeWidth={3} className="size-[42px] drop-shadow-sm drop-shadow-black/50" />
 				<span className="sr-only">Go to next slide</span>
 			</Button>
-			<Button type="button" variant="ghost" size="icon" className="col-start-2 row-start-3" disabled>
+			<Button
+				type="button"
+				variant="ghost"
+				size="icon"
+				className="col-start-2 row-start-3"
+				onClick={() => subslideControls?.down?.()}
+				disabled={!subslideControls?.down}
+			>
 				<ChevronDown aria-hidden="true" strokeWidth={3} className="size-[42px] drop-shadow-sm drop-shadow-black/50" />
 				<span className="sr-only">Go to next subslide</span>
 			</Button>

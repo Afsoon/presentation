@@ -210,6 +210,23 @@ body {
 	--sidebar-ring: oklch(0.556 0 0);
 }
 
+@layer components {
+	.reasons-accordion {
+		counter-reset: reason;
+	}
+	.reasons-accordion > [data-slot="accordion-item"] {
+		counter-increment: reason;
+	}
+	.reasons-accordion .reason-number::before {
+		content: counter(reason, decimal-leading-zero);
+	}
+
+	.workflow-steps > li::before {
+		content: counter(list-item, decimal-leading-zero);
+		@apply mb-3 block text-sm font-medium text-muted-foreground;
+	}
+}
+
 @layer base {
 	* {
 		@apply border-border outline-ring/50;

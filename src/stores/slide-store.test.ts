@@ -3,12 +3,25 @@ import { describe, expect, it, vi } from "vite-plus/test";
 import { createSlideStore } from "./slide-store";
 
 const slides = [
-	{ id: "first", name: "First slide", position: 0 },
-	{ id: "second", name: "Second slide", position: 1 },
-	{ id: "third", name: "Third slide", position: 2 },
+	{ Id: "first", name: "First slide", hasSubslides: false, position: 0 },
+	{ Id: "second", name: "Second slide", hasSubslides: true, position: 1 },
+	{ Id: "third", name: "Third slide", hasSubslides: false, position: 2 },
 ];
 
 describe("slide store", () => {
+	it("starts with the slides' exported metadata in presentation order", () => {
+		const snapshot = createSlideStore().getSnapshot();
+
+		expect(snapshot.slides).toEqual([
+			{ Id: "title", name: "PgTest", hasSubslides: false, position: 0 },
+			{ Id: "table-of-contents", name: "Table of contents", hasSubslides: true, position: 1 },
+			{ Id: "what-is-pgtest", name: "What is pgtest?", hasSubslides: false, position: 2 },
+			{ Id: "why-am-i-building-it", name: "Why am I building it?", hasSubslides: false, position: 3 },
+			{ Id: "reasons-for-building-pgtest", name: "Reasons for building PgTest", hasSubslides: true, position: 4 },
+		]);
+		expect(snapshot.currentSlide).toBe(snapshot.slides[0]);
+	});
+
 	it("exposes ordered metadata, names, and navigation targets without components", () => {
 		const store = createSlideStore({ slides, currentPosition: 1 });
 		const snapshot = store.getSnapshot();
@@ -18,13 +31,13 @@ describe("slide store", () => {
 			[1, "Second slide"],
 			[2, "Third slide"],
 		]);
-		expect(snapshot.currentSlide).toEqual({ id: "second", name: "Second slide", position: 1 });
+		expect(snapshot.currentSlide).toEqual({ Id: "second", name: "Second slide", hasSubslides: true, position: 1 });
 		expect(snapshot.availableNavigations.left).toBe(snapshot.slides[0]);
 		expect(snapshot.availableNavigations.right).toBe(snapshot.slides[2]);
 		expect(JSON.parse(JSON.stringify(snapshot))).toEqual(snapshot);
 	});
 
-	it("navigates in both directions and leaves boundary requests unchanged", () => {
+	it("navigates horizontally regardless of subslides and leaves boundary requests unchanged", () => {
 		const store = createSlideStore({ slides, currentPosition: 0 });
 		const first = store.getSnapshot();
 		store.navigate("left");
@@ -35,7 +48,7 @@ describe("slide store", () => {
 		expect(store.getSnapshot()).toMatchObject({ currentPosition: 1, direction: "right", transitionClass: "slide-in" });
 		store.navigate("right");
 		const last = store.getSnapshot();
-		expect(last.currentSlide.id).toBe("third");
+		expect(last.currentSlide.Id).toBe("third");
 		expect(last.availableNavigations.right).toBeNull();
 		store.navigate("right");
 		expect(store.getSnapshot()).toBe(last);
@@ -43,7 +56,7 @@ describe("slide store", () => {
 		store.navigate("left");
 		expect(store.getSnapshot()).toMatchObject({ currentPosition: 1, direction: "left", transitionClass: "slide-back" });
 		store.navigate("left");
-		expect(store.getSnapshot().currentSlide.id).toBe("first");
+		expect(store.getSnapshot().currentSlide.Id).toBe("first");
 	});
 
 	it("notifies subscribers only on changes and supports unsubscribing", () => {
@@ -62,7 +75,7 @@ describe("slide store", () => {
 	});
 
 	it("caches snapshots and uses the supplied slides directly", () => {
-		const input = [{ id: "only", name: "Original name", position: 0 }];
+		const input = [{ Id: "only", name: "Original name", hasSubslides: false, position: 0 }];
 		const store = createSlideStore({ slides: input, currentPosition: 0 });
 		const snapshot = store.getSnapshot();
 

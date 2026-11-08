@@ -1,10 +1,15 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { Activity, useDeferredValue, ViewTransition } from "react";
 
-import { SlideTableOfContent } from "#/slides/slide_2_table_of_content.tsx";
 import { KeyboardNavigation } from "@/components/keyboard_navigation";
-import { SlideTitle } from "@/slides/slide_1_title";
-import { SlideWhatIsPgtest } from "@/slides/slide_3_what_is_pgtest";
+import { SlideTitle, metadata as titleMetadata } from "@/slides/slide_1_title";
+import { SlideTableOfContent, metadata as tableOfContentsMetadata } from "@/slides/slide_2_table_of_content";
+import { SlideWhatIsPgtest, metadata as whatIsPgtestMetadata } from "@/slides/slide_3_what_is_pgtest";
+import { SlideWhyAmIBuildingIt, metadata as whyAmIBuildingItMetadata } from "@/slides/slide_4_why_am_i_building_it";
+import {
+	SlideReasonsForBuildingPgtest,
+	metadata as reasonsForBuildingPgtestMetadata,
+} from "@/slides/slide_5_reasons_for_building_pgtest";
 import { useSlides } from "@/stores/use-slides";
 
 export const Route = createFileRoute("/")({ component: Home });
@@ -26,7 +31,7 @@ function Home() {
 				tabIndex={0}
 				className="min-h-0 overflow-y-auto p-6 outline-offset-[-4px] sm:p-12 lg:p-20"
 			>
-				<Activity mode={currentSlide.id === "title" ? "visible" : "hidden"}>
+				<Activity mode={currentSlide.Id === titleMetadata.Id ? "visible" : "hidden"}>
 					<ViewTransition
 						default="none"
 						enter={{ default: "slide-in", forward: "slide-in", backward: "slide-back" }}
@@ -37,7 +42,7 @@ function Home() {
 						</div>
 					</ViewTransition>
 				</Activity>
-				<Activity mode={currentSlide.id === "table-of-contents" ? "visible" : "hidden"}>
+				<Activity mode={currentSlide.Id === tableOfContentsMetadata.Id ? "visible" : "hidden"}>
 					<ViewTransition
 						default="none"
 						enter={{ default: "slide-in", forward: "slide-in", backward: "slide-back" }}
@@ -48,7 +53,7 @@ function Home() {
 						</div>
 					</ViewTransition>
 				</Activity>
-				<Activity mode={currentSlide.id === "what-is-pgtest" ? "visible" : "hidden"}>
+				<Activity mode={currentSlide.Id === whatIsPgtestMetadata.Id ? "visible" : "hidden"}>
 					<ViewTransition
 						default="none"
 						enter={{ default: "slide-in", forward: "slide-in", backward: "slide-back" }}
@@ -56,6 +61,28 @@ function Home() {
 					>
 						<div className="mx-auto flex min-h-full w-full max-w-6xl flex-col justify-center">
 							<SlideWhatIsPgtest />
+						</div>
+					</ViewTransition>
+				</Activity>
+				<Activity mode={currentSlide.Id === whyAmIBuildingItMetadata.Id ? "visible" : "hidden"}>
+					<ViewTransition
+						default="none"
+						enter={{ default: "slide-in", forward: "slide-in", backward: "slide-back" }}
+						exit={{ default: "slide-in", forward: "slide-in", backward: "slide-back" }}
+					>
+						<div className="mx-auto flex min-h-full w-full max-w-6xl flex-col justify-center">
+							<SlideWhyAmIBuildingIt />
+						</div>
+					</ViewTransition>
+				</Activity>
+				<Activity mode={currentSlide.Id === reasonsForBuildingPgtestMetadata.Id ? "visible" : "hidden"}>
+					<ViewTransition
+						default="none"
+						enter={{ default: "slide-in", forward: "slide-in", backward: "slide-back" }}
+						exit={{ default: "slide-in", forward: "slide-in", backward: "slide-back" }}
+					>
+						<div className="mx-auto flex min-h-full w-full max-w-6xl flex-col justify-center">
+							<SlideReasonsForBuildingPgtest />
 						</div>
 					</ViewTransition>
 				</Activity>
