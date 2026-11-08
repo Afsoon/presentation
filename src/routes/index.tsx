@@ -2,6 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { Activity, useDeferredValue, ViewTransition } from "react";
 
 import { KeyboardNavigation } from "@/components/keyboard_navigation";
+import { getInitialPresentation } from "@/server/initial-presentation";
 import { SlideTitle, metadata as titleMetadata } from "@/slides/slide_1_title";
 import { SlideTableOfContent, metadata as tableOfContentsMetadata } from "@/slides/slide_2_table_of_content";
 import { SlideWhatIsPgtest, metadata as whatIsPgtestMetadata } from "@/slides/slide_3_what_is_pgtest";
@@ -12,7 +13,10 @@ import {
 } from "@/slides/slide_5_reasons_for_building_pgtest";
 import { useSlides } from "@/stores/use-slides";
 
-export const Route = createFileRoute("/")({ component: Home });
+export const Route = createFileRoute("/")({
+	loader: ({ location }) => getInitialPresentation({ data: location.searchStr }),
+	component: Home,
+});
 
 function Home() {
 	const { snapshot } = useSlides();

@@ -43,7 +43,7 @@ function Button({
 	variant = "default",
 	size = "default",
 	...props
-}: ButtonPrimitive.Props & VariantProps<typeof buttonVariants>) {
+}: ButtonPrimitive.Props & VariantProps<typeof buttonVariants> & { autoComplete?: "on" | "off" }) {
 	return <ButtonPrimitive data-slot="button" className={cn(buttonVariants({ variant, size, className }))} {...props} />;
 }
 

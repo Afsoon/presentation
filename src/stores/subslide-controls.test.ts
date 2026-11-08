@@ -12,11 +12,11 @@ describe("subslide controls", () => {
 		const first = { Id: slide.Id, up: null, down: vi.fn() };
 		expect(store.getSnapshot()).toBeNull();
 		store.updateSubslidesControl(first);
-		expect(store.getSnapshot()).toBe(first);
+		expect(store.getSnapshot()).toEqual({ ...first, canGoUp: false, canGoDown: true });
 		expect(store.getServerSnapshot()).toBeNull();
 		const last = { Id: slide.Id, up: vi.fn(), down: null };
 		store.updateSubslidesControl(last);
-		expect(store.getSnapshot()).toBe(last);
+		expect(store.getSnapshot()).toEqual({ ...last, canGoUp: true, canGoDown: false });
 		expect(first.down).not.toHaveBeenCalled();
 		expect(last.up).not.toHaveBeenCalled();
 		store.updateSubslidesControl(null);

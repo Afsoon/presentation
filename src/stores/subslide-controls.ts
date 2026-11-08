@@ -5,19 +5,26 @@ export type SubslideControls = {
 	up: (() => void) | null;
 	down: (() => void) | null;
 };
+export type SubslideControlsSnapshot = SubslideControls & { canGoUp: boolean; canGoDown: boolean };
 
-export function getAvailableSubslideControls(controls: SubslideControls | null, slide: SlideMetadata) {
+export function getAvailableSubslideControls<T extends { Id: string }>(controls: T | null, slide: SlideMetadata) {
 	return slide.hasSubslides && controls?.Id === slide.Id ? controls : null;
 }
 
 export function createSubslideControlsStore() {
-	let snapshot: SubslideControls | null = null;
+	let snapshot: SubslideControlsSnapshot | null = null;
+	let initialized = false;
 	const listeners = new Set<() => void>();
 	const emit = () => listeners.forEach((listener) => listener());
 
 	return {
 		getSnapshot: () => snapshot,
 		getServerSnapshot: () => null,
+		hydrate: (initial: SubslideControlsSnapshot) => {
+			if (initialized) return;
+			initialized = true;
+			if (!snapshot) snapshot = initial;
+		},
 		subscribe: (listener: () => void) => {
 			listeners.add(listener);
 			return () => {
@@ -25,7 +32,7 @@ export function createSubslideControlsStore() {
 			};
 		},
 		updateSubslidesControl: (controls: SubslideControls | null) => {
-			snapshot = controls;
+			snapshot = controls ? { ...controls, canGoUp: !!controls.up, canGoDown: !!controls.down } : null;
 			emit();
 		},
 	};

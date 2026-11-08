@@ -51,7 +51,7 @@ export function createSlideStore(initialState: SlideInitialState = defaultSlideS
 		throw new Error("The initial slide position is outside the presentation.");
 	}
 
-	const slides = initialState.slides;
+	let slides = initialState.slides;
 	const listeners = new Set<() => void>();
 
 	const createSnapshot = (currentPosition: number, direction: SlideDirection | null): SlideSnapshot => ({
@@ -66,13 +66,45 @@ export function createSlideStore(initialState: SlideInitialState = defaultSlideS
 		},
 	});
 
-	const serverSnapshot = createSnapshot(initialState.currentPosition, initialState.direction ?? null);
+	let serverSnapshot = createSnapshot(initialState.currentPosition, initialState.direction ?? null);
 	let snapshot = serverSnapshot;
+	let initialized = false;
+	const positionForId = (Id: string) =>
+		Math.max(
+			0,
+			slides.findIndex((slide) => slide.Id === Id),
+		);
+	const updateUrl = () => {
+		if (typeof window === "undefined") return;
+		const url = new URL(window.location.href);
+		if (url.searchParams.get("slide") === snapshot.currentSlide.Id) return;
+		url.searchParams.set("slide", snapshot.currentSlide.Id);
+		window.history.replaceState(window.history.state, "", url);
+	};
 
 	return {
 		getSnapshot: () => snapshot,
 		// Keep the hydration snapshot stable even after client-side navigation.
 		getServerSnapshot: () => serverSnapshot,
+		hydrate: (initial: SlideSnapshot) => {
+			if (initialized) return;
+			initialized = true;
+			slides = initial.slides;
+			serverSnapshot = initial;
+			snapshot = serverSnapshot;
+			if (typeof window !== "undefined") {
+				const Id = new URL(window.location.href).searchParams.get("slide") ?? slides[0].Id;
+				snapshot = createSnapshot(positionForId(Id), null);
+				updateUrl();
+			}
+		},
+		goToSlide: (Id: string) => {
+			const position = positionForId(Id);
+			if (position === snapshot.currentPosition) return;
+			snapshot = createSnapshot(position, position < snapshot.currentPosition ? "left" : "right");
+			updateUrl();
+			listeners.forEach((listener) => listener());
+		},
 		subscribe: (listener: () => void) => {
 			listeners.add(listener);
 			return () => {
@@ -84,9 +116,11 @@ export function createSlideStore(initialState: SlideInitialState = defaultSlideS
 			if (!target) return;
 
 			snapshot = createSnapshot(target.position, direction);
+			updateUrl();
 			listeners.forEach((listener) => listener());
 		},
 	};
 }
 
 export const slideStore = createSlideStore();
+export type SlideStore = ReturnType<typeof createSlideStore>;
