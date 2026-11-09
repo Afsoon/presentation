@@ -3,11 +3,16 @@ import { renderToString } from "react-dom/server";
 import { describe, expect, it, vi } from "vite-plus/test";
 
 import { getRouter } from "./router";
+import { getInitialTheme } from "./server/initial-theme";
 import { getInitialPresentationState } from "./stores/slide-search";
 
 // Test the loader payload without the server-function transport/compiler plugin.
 vi.mock("@/server/initial-presentation", () => ({
 	getInitialPresentation: ({ data }: { data: string }) => Promise.resolve(getInitialPresentationState(data)),
+}));
+
+vi.mock("@/server/initial-theme", () => ({
+	getInitialTheme: vi.fn(() => Promise.resolve("light")),
 }));
 
 async function loadRouter(url: string) {
@@ -18,6 +23,15 @@ async function loadRouter(url: string) {
 }
 
 describe("slide route search", () => {
+	it.each(["light", "dark"] as const)("server-renders the %s theme", async (theme) => {
+		vi.mocked(getInitialTheme).mockResolvedValueOnce(theme);
+		const router = await loadRouter("/?slide=title");
+		const html = renderToString(<RouterProvider router={router} />);
+		if (theme === "dark") expect(html).toContain('class="dark"');
+		else expect(html).not.toContain('<html lang="en" class="dark"');
+		expect(html).toContain(theme === "dark" ? "lucide-sun" : "lucide-moon");
+	});
+
 	it("server-renders the requested slide with its initial subslide", async () => {
 		const router = await loadRouter("/?slide=table-of-contents");
 		const html = renderToString(<RouterProvider router={router} />);

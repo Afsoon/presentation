@@ -1,7 +1,8 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, getRouteApi } from "@tanstack/react-router";
 import { Activity, useDeferredValue, ViewTransition } from "react";
 
 import { KeyboardNavigation } from "@/components/keyboard_navigation";
+import { AnimatedThemeToggler } from "@/components/ui/animated-theme-toggler";
 import { GridPattern } from "@/components/ui/grid-pattern";
 import { getInitialPresentation } from "@/server/initial-presentation";
 import { SlideTitle, metadata as titleMetadata } from "@/slides/slide_1_title";
@@ -54,6 +55,7 @@ export const Route = createFileRoute("/")({
 
 function Home() {
 	const { snapshot } = useSlides();
+	const { theme } = getRouteApi("__root__").useLoaderData();
 	// Defer rendering so synchronous store updates can activate React ViewTransitions.
 	const { currentSlide } = useDeferredValue(snapshot);
 	return (
@@ -344,6 +346,12 @@ function Home() {
 				</Activity>
 			</section>
 			<KeyboardNavigation />
+			<div className="absolute top-4 left-4 z-20">
+				<AnimatedThemeToggler
+					initialTheme={theme}
+					className="flex size-[42px] items-center justify-center rounded-md hover:bg-accent focus-visible:outline-2 focus-visible:outline-ring"
+				/>
+			</div>
 		</main>
 	);
 }

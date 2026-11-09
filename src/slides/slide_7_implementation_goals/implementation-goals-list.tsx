@@ -12,7 +12,7 @@ export function ImplementationGoalsList({ items }: { items: readonly Implementat
 				{items.map((goal) => (
 					<motion.li
 						key={goal.id}
-						className="space-y-3 rounded-xl border bg-card p-6"
+						className="space-y-3 rounded-xl border bg-card shadow-2xl shadow-black/25 dark:shadow-black/50 p-6"
 						initial={{ opacity: 0, y: reduceMotion ? 0 : 20 }}
 						animate={{ opacity: 1, y: 0 }}
 						exit={{ opacity: 0, y: reduceMotion ? 0 : 20 }}

@@ -36,7 +36,7 @@ export const SlideCleanupDatabaseTrigger = () => {
 							<motion.section
 								key="integresql"
 								aria-label="IntegreSQL"
-								className="space-y-5 rounded-2xl border bg-card p-6"
+								className="space-y-5 rounded-2xl border bg-card shadow-2xl shadow-black/25 dark:shadow-black/50 p-6"
 								initial={hidden}
 								animate={visible}
 								exit={hidden}
@@ -53,7 +53,7 @@ export const SlideCleanupDatabaseTrigger = () => {
 							<motion.section
 								key="pgtest"
 								aria-label="PgTest"
-								className="space-y-5 rounded-2xl border bg-card p-6"
+								className="space-y-5 rounded-2xl border bg-card shadow-2xl shadow-black/25 dark:shadow-black/50 p-6"
 								initial={hidden}
 								animate={visible}
 								exit={hidden}

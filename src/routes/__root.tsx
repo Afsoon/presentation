@@ -2,9 +2,12 @@ import { TanStackDevtools } from "@tanstack/react-devtools";
 import { HeadContent, Scripts, createRootRoute } from "@tanstack/react-router";
 import { TanStackRouterDevtoolsPanel } from "@tanstack/react-router-devtools";
 
+import { getInitialTheme } from "@/server/initial-theme";
+
 import appCss from "../styles.css?url";
 
 export const Route = createRootRoute({
+	loader: async () => ({ theme: await getInitialTheme() }),
 	head: () => ({
 		meta: [
 			{
@@ -29,8 +32,9 @@ export const Route = createRootRoute({
 });
 
 function RootDocument({ children }: { children: React.ReactNode }) {
+	const { theme } = Route.useLoaderData();
 	return (
-		<html lang="en">
+		<html lang="en" className={theme === "dark" ? "dark" : undefined}>
 			<head>
 				<HeadContent />
 			</head>

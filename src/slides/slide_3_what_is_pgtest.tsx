@@ -18,18 +18,18 @@ export const SlideWhatIsPgtest = () => {
 				</Typography>
 			</div>
 			<ol role="list" className="workflow-steps grid gap-6 md:grid-cols-3">
-				<li className="space-y-3 rounded-xl border bg-card p-6">
+				<li className="space-y-3 rounded-xl border bg-card shadow-2xl shadow-black/25 dark:shadow-black/50 p-6">
 					<Typography level="h3">Arrange</Typography>
 					<Typography level="p">Initialize a database and preseed it before executing your test suite.</Typography>
 				</li>
-				<li className="space-y-3 rounded-xl border bg-card p-6">
+				<li className="space-y-3 rounded-xl border bg-card shadow-2xl shadow-black/25 dark:shadow-black/50 p-6">
 					<Typography level="h3">Act</Typography>
 					<Typography level="p">
 						Lease a database each time you need an isolated database. You only need a unique identifier; the rest is
 						managed by PgTest.
 					</Typography>
 				</li>
-				<li className="space-y-3 rounded-xl border bg-card p-6">
+				<li className="space-y-3 rounded-xl border bg-card shadow-2xl shadow-black/25 dark:shadow-black/50 p-6">
 					<Typography level="h3">Assert (to be reviewed)</Typography>
 					<Typography level="p">Execute your test. PgTest will proxy your queries to the leased database.</Typography>
 				</li>

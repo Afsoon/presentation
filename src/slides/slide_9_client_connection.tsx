@@ -62,7 +62,10 @@ export const SlideClientConnection = () => {
 							exit={hidden}
 							transition={transition}
 						>
-							<section aria-label="IntegreSQL" className="space-y-5 rounded-2xl border bg-card p-6">
+							<section
+								aria-label="IntegreSQL"
+								className="space-y-5 rounded-2xl border bg-card shadow-2xl shadow-black/25 dark:shadow-black/50 p-6"
+							>
 								<Typography level="h3">{integresql.title}</Typography>
 								<Typography level="p">{integresql.content}</Typography>
 								<Typography level="p">
@@ -74,7 +77,7 @@ export const SlideClientConnection = () => {
 									<motion.section
 										key="pgtest"
 										aria-label="PgTest"
-										className="space-y-5 rounded-2xl border bg-card p-6"
+										className="space-y-5 rounded-2xl border bg-card shadow-2xl shadow-black/25 dark:shadow-black/50 p-6"
 										initial={hidden}
 										animate={visible}
 										exit={hidden}

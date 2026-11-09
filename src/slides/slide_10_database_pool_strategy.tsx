@@ -45,7 +45,7 @@ export const SlideDatabasePoolStrategy = () => {
 							<motion.section
 								key="integresql"
 								aria-label="IntegreSQL"
-								className="flex h-full flex-col gap-5 rounded-2xl border bg-card p-6"
+								className="flex h-full flex-col gap-5 rounded-2xl border bg-card shadow-2xl shadow-black/25 dark:shadow-black/50 p-6"
 								initial={hidden}
 								animate={visible}
 								exit={hidden}
@@ -77,7 +77,7 @@ export const SlideDatabasePoolStrategy = () => {
 							<motion.section
 								key="pgtest"
 								aria-label="PgTest"
-								className="flex h-full flex-col gap-5 rounded-2xl border bg-card p-6"
+								className="flex h-full flex-col gap-5 rounded-2xl border bg-card shadow-2xl shadow-black/25 dark:shadow-black/50 p-6"
 								initial={hidden}
 								animate={visible}
 								exit={hidden}
