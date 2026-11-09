@@ -25,6 +25,13 @@ describe("slide store", () => {
 				position: 5,
 			},
 			{ Id: "implementation-goals", name: "Implementation goals", hasSubslides: true, position: 6 },
+			{
+				Id: "proof-of-concept-implementation",
+				name: "Proof of concept implementation",
+				hasSubslides: false,
+				position: 7,
+			},
+			{ Id: "client-connection", name: "Client connection", hasSubslides: true, position: 8 },
 		]);
 		expect(snapshot.currentSlide).toBe(snapshot.slides[0]);
 	});

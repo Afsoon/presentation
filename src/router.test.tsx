@@ -64,6 +64,17 @@ describe("slide route search", () => {
 		expect(html).not.toContain("New database pool strategy");
 	});
 
+	it("opens the client connection slide with the subtitle before its title and no columns", async () => {
+		const router = await loadRouter("/?slide=client-connection");
+		const html = renderToString(<RouterProvider router={router} />);
+		expect(html).toContain("PoC Implementation");
+		expect(html).toMatch(/PoC Implementation[\s\S]*<h2[^>]*>Client connection<\/h2>/);
+		expect(html).not.toContain("Extra roundtrips");
+		expect(html).not.toContain("generate unique IDs");
+		expect(html).not.toContain('aria-label="IntegreSQL"');
+		expect(html).not.toContain('aria-label="PgTest"');
+	});
+
 	it("initializes isolated server requests from their URLs", async () => {
 		const [first, second] = await Promise.all([
 			loadRouter("/?slide=table-of-contents"),

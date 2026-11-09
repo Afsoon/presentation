@@ -20,6 +20,11 @@ import {
 	SlideImplementationGoals,
 	metadata as implementationGoalsMetadata,
 } from "@/slides/slide_7_implementation_goals";
+import {
+	SlideProofOfConceptImplementation,
+	metadata as proofOfConceptMetadata,
+} from "@/slides/slide_8_proof_of_concept_implementation";
+import { SlideClientConnection, metadata as clientConnectionMetadata } from "@/slides/slide_9_client_connection";
 import { useSlides } from "@/stores/use-slides";
 
 export const Route = createFileRoute("/")({
@@ -138,6 +143,28 @@ function Home() {
 					>
 						<div className="mx-auto flex min-h-full w-full max-w-6xl flex-col justify-center">
 							<SlideImplementationGoals />
+						</div>
+					</ViewTransition>
+				</Activity>
+				<Activity mode={currentSlide.Id === proofOfConceptMetadata.Id ? "visible" : "hidden"}>
+					<ViewTransition
+						default="none"
+						enter={{ default: "slide-in", forward: "slide-in", backward: "slide-back" }}
+						exit={{ default: "slide-in", forward: "slide-in", backward: "slide-back" }}
+					>
+						<div className="mx-auto flex min-h-full w-full max-w-6xl flex-col justify-center">
+							<SlideProofOfConceptImplementation />
+						</div>
+					</ViewTransition>
+				</Activity>
+				<Activity mode={currentSlide.Id === clientConnectionMetadata.Id ? "visible" : "hidden"}>
+					<ViewTransition
+						default="none"
+						enter={{ default: "slide-in", forward: "slide-in", backward: "slide-back" }}
+						exit={{ default: "slide-in", forward: "slide-in", backward: "slide-back" }}
+					>
+						<div className="mx-auto flex min-h-full w-full max-w-6xl flex-col justify-center">
+							<SlideClientConnection />
 						</div>
 					</ViewTransition>
 				</Activity>

@@ -3,11 +3,13 @@ import type { ActorRefFrom } from "xstate";
 import type { tableOfContentsMachine } from "@/slides/slide_2_table_of_content/slide_2_table_of_content.machine";
 import type { reasonsMachine } from "@/slides/slide_5_reasons_for_building_pgtest/slide_5_reasons_for_building_pgtest.machine";
 import type { implementationGoalsMachine } from "@/slides/slide_7_implementation_goals/slide_7_implementation_goals.machine";
+import type { clientConnectionMachine } from "@/slides/slide_9_client_connection/slide_9_client_connection.machine";
 
 type SlideActor =
 	| ActorRefFrom<typeof tableOfContentsMachine>
 	| ActorRefFrom<typeof reasonsMachine>
-	| ActorRefFrom<typeof implementationGoalsMachine>;
+	| ActorRefFrom<typeof implementationGoalsMachine>
+	| ActorRefFrom<typeof clientConnectionMachine>;
 
 export function createSubslideControlsStore() {
 	const actors = new Map<string, SlideActor>();

@@ -5,6 +5,8 @@ import { metadata as whyAmIBuildingItMetadata } from "@/slides/slide_4_why_am_i_
 import { metadata as reasonsForBuildingPgtestMetadata } from "@/slides/slide_5_reasons_for_building_pgtest";
 import { metadata as architectureMetadata } from "@/slides/slide_6_architecture_and_implementation";
 import { metadata as implementationGoalsMetadata } from "@/slides/slide_7_implementation_goals";
+import { metadata as proofOfConceptMetadata } from "@/slides/slide_8_proof_of_concept_implementation";
+import { metadata as clientConnectionMetadata } from "@/slides/slide_9_client_connection";
 import type { SlideMetadata } from "@/slides/types";
 
 export type SlideDirection = "left" | "right";
@@ -35,6 +37,8 @@ export const defaultSlideState: SlideInitialState = {
 		{ ...reasonsForBuildingPgtestMetadata, position: 4 },
 		{ ...architectureMetadata, position: 5 },
 		{ ...implementationGoalsMetadata, position: 6 },
+		{ ...proofOfConceptMetadata, position: 7 },
+		{ ...clientConnectionMetadata, position: 8 },
 	],
 	currentPosition: 0,
 	direction: null,
