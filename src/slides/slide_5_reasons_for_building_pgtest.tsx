@@ -49,7 +49,7 @@ export const SlideReasonsForBuildingPgtest = () => {
 						key={faq.id}
 						value={faq.id}
 						className={cn(
-							"border border-border rounded-2xl flex flex-col group/item data-open:bg-accent data-open:border-transparent transition-colors",
+							"border border-border bg-card rounded-2xl flex flex-col group/item data-open:bg-accent data-open:border-transparent transition-colors",
 							!hasEntered.current &&
 								"animate-in fade-in slide-in-from-bottom-6 duration-700 fill-mode-both motion-reduce:animate-none",
 							!hasEntered.current && faq.id === "strategies" && "delay-100",
@@ -69,7 +69,7 @@ export const SlideReasonsForBuildingPgtest = () => {
 					</AccordionItem>
 				))}
 			</Accordion>
-			<Separator orientation="vertical" className="hidden lg:block" />
+			<Separator orientation="vertical" className="hidden rounded-full data-vertical:w-1 lg:block" />
 			<ReasonsSideList key={activeReason} items={rightItems} label={rightLabel} />
 		</div>
 	);

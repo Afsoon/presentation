@@ -2,6 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { Activity, useDeferredValue, ViewTransition } from "react";
 
 import { KeyboardNavigation } from "@/components/keyboard_navigation";
+import { GridPattern } from "@/components/ui/grid-pattern";
 import { getInitialPresentation } from "@/server/initial-presentation";
 import { SlideTitle, metadata as titleMetadata } from "@/slides/slide_1_title";
 import { SlideTableOfContent, metadata as tableOfContentsMetadata } from "@/slides/slide_2_table_of_content";
@@ -34,8 +35,29 @@ function Home() {
 		<main
 			id="presentation"
 			aria-label="Presentation"
-			className="grid h-dvh w-full grid-rows-[minmax(0,1fr)_auto] bg-background text-foreground"
+			className="relative isolate grid h-dvh w-full grid-rows-[minmax(0,1fr)_auto] bg-background text-foreground"
 		>
+			<div
+				aria-hidden="true"
+				className="opacity-50 pointer-events-none absolute inset-0 -z-10 overflow-hidden [mask-image:radial-gradient(ellipse_at_center,white_30%,transparent_70%)]"
+			>
+				<GridPattern
+					width={80}
+					height={80}
+					squares={[
+						[4, 4],
+						[5, 1],
+						[8, 2],
+						[5, 3],
+						[5, 5],
+						[10, 10],
+						[12, 15],
+						[15, 10],
+						[10, 15],
+					]}
+					className="inset-x-0 inset-y-[-15vw] h-[calc(100%+30vw)] skew-y-12"
+				/>
+			</div>
 			<section
 				aria-label={currentSlide.name}
 				aria-roledescription="slide"
