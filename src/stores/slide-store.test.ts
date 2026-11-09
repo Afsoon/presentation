@@ -34,6 +34,7 @@ describe("slide store", () => {
 			{ Id: "client-connection", name: "Client connection", hasSubslides: true, position: 8 },
 			{ Id: "database-pool-strategy", name: "Database Pool Strategy", hasSubslides: true, position: 9 },
 			{ Id: "cleanup-database-trigger", name: "Cleanup database trigger", hasSubslides: true, position: 10 },
+			{ Id: "poc-results", name: "PoC Results", hasSubslides: true, position: 11 },
 		]);
 		expect(snapshot.currentSlide).toBe(snapshot.slides[0]);
 	});

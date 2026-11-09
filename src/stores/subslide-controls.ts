@@ -6,6 +6,7 @@ import type { implementationGoalsMachine } from "@/slides/slide_7_implementation
 import type { clientConnectionMachine } from "@/slides/slide_9_client_connection/slide_9_client_connection.machine";
 import type { databasePoolStrategyMachine } from "@/slides/slide_10_database_pool_strategy/slide_10_database_pool_strategy.machine";
 import type { cleanupDatabaseTriggerMachine } from "@/slides/slide_11_cleanup_database_trigger/slide_11_cleanup_database_trigger.machine";
+import type { pocResultsMachine } from "@/slides/slide_12_poc_results/slide_12_poc_results.machine";
 
 type SlideActor =
 	| ActorRefFrom<typeof tableOfContentsMachine>
@@ -13,7 +14,8 @@ type SlideActor =
 	| ActorRefFrom<typeof implementationGoalsMachine>
 	| ActorRefFrom<typeof clientConnectionMachine>
 	| ActorRefFrom<typeof databasePoolStrategyMachine>
-	| ActorRefFrom<typeof cleanupDatabaseTriggerMachine>;
+	| ActorRefFrom<typeof cleanupDatabaseTriggerMachine>
+	| ActorRefFrom<typeof pocResultsMachine>;
 
 export function createSubslideControlsStore() {
 	const actors = new Map<string, SlideActor>();

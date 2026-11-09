@@ -27,6 +27,7 @@ import {
 import { SlideClientConnection, metadata as clientConnectionMetadata } from "@/slides/slide_9_client_connection";
 import { SlideDatabasePoolStrategy, metadata as databasePoolMetadata } from "@/slides/slide_10_database_pool_strategy";
 import { SlideCleanupDatabaseTrigger, metadata as cleanupMetadata } from "@/slides/slide_11_cleanup_database_trigger";
+import { SlidePocResults, metadata as pocResultsMetadata } from "@/slides/slide_12_poc_results";
 import { useSlides } from "@/stores/use-slides";
 
 export const Route = createFileRoute("/")({
@@ -189,6 +190,17 @@ function Home() {
 					>
 						<div className="mx-auto flex min-h-full w-full max-w-6xl flex-col justify-center">
 							<SlideCleanupDatabaseTrigger />
+						</div>
+					</ViewTransition>
+				</Activity>
+				<Activity mode={currentSlide.Id === pocResultsMetadata.Id ? "visible" : "hidden"}>
+					<ViewTransition
+						default="none"
+						enter={{ default: "slide-in", forward: "slide-in", backward: "slide-back" }}
+						exit={{ default: "slide-in", forward: "slide-in", backward: "slide-back" }}
+					>
+						<div className="mx-auto flex min-h-full w-full max-w-6xl flex-col justify-center">
+							<SlidePocResults />
 						</div>
 					</ViewTransition>
 				</Activity>
