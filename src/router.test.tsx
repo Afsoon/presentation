@@ -46,6 +46,24 @@ describe("slide route search", () => {
 		expect(down).toContain('disabled=""');
 	});
 
+	it("server-renders the architecture divider with only its title", async () => {
+		const router = await loadRouter("/?slide=architecture-and-implementation");
+		const html = renderToString(<RouterProvider router={router} />);
+		const section = html.match(/<section\b[^>]*>([\s\S]*?)<\/section>/)?.[1];
+		expect(section).toBeDefined();
+		expect(section?.replace(/<[^>]*>/g, "")).toBe("Architecture and implementation");
+	});
+
+	it("server-renders the goals subheader and first requirement/solution card", async () => {
+		const router = await loadRouter("/?slide=implementation-goals");
+		const html = renderToString(<RouterProvider router={router} />);
+		expect(html).toMatch(/<h3[^>]*>Implementation goals<\/h3>/);
+		expect(html).toContain("Prioritize performance");
+		expect(html).toContain("Rust");
+		expect(html).toContain("workflow-steps");
+		expect(html).not.toContain("New database pool strategy");
+	});
+
 	it("initializes isolated server requests from their URLs", async () => {
 		const [first, second] = await Promise.all([
 			loadRouter("/?slide=table-of-contents"),

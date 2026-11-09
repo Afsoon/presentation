@@ -3,6 +3,8 @@ import { metadata as tableOfContentsMetadata } from "@/slides/slide_2_table_of_c
 import { metadata as whatIsPgtestMetadata } from "@/slides/slide_3_what_is_pgtest";
 import { metadata as whyAmIBuildingItMetadata } from "@/slides/slide_4_why_am_i_building_it";
 import { metadata as reasonsForBuildingPgtestMetadata } from "@/slides/slide_5_reasons_for_building_pgtest";
+import { metadata as architectureMetadata } from "@/slides/slide_6_architecture_and_implementation";
+import { metadata as implementationGoalsMetadata } from "@/slides/slide_7_implementation_goals";
 import type { SlideMetadata } from "@/slides/types";
 
 export type SlideDirection = "left" | "right";
@@ -31,6 +33,8 @@ export const defaultSlideState: SlideInitialState = {
 		{ ...whatIsPgtestMetadata, position: 2 },
 		{ ...whyAmIBuildingItMetadata, position: 3 },
 		{ ...reasonsForBuildingPgtestMetadata, position: 4 },
+		{ ...architectureMetadata, position: 5 },
+		{ ...implementationGoalsMetadata, position: 6 },
 	],
 	currentPosition: 0,
 	direction: null,

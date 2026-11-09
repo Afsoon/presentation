@@ -11,6 +11,14 @@ import {
 	SlideReasonsForBuildingPgtest,
 	metadata as reasonsForBuildingPgtestMetadata,
 } from "@/slides/slide_5_reasons_for_building_pgtest";
+import {
+	SlideArchitectureAndImplementation,
+	metadata as architectureMetadata,
+} from "@/slides/slide_6_architecture_and_implementation";
+import {
+	SlideImplementationGoals,
+	metadata as implementationGoalsMetadata,
+} from "@/slides/slide_7_implementation_goals";
 import { useSlides } from "@/stores/use-slides";
 
 export const Route = createFileRoute("/")({
@@ -86,6 +94,28 @@ function Home() {
 					>
 						<div className="mx-auto flex min-h-full w-full max-w-6xl flex-col justify-center">
 							<SlideReasonsForBuildingPgtest />
+						</div>
+					</ViewTransition>
+				</Activity>
+				<Activity mode={currentSlide.Id === architectureMetadata.Id ? "visible" : "hidden"}>
+					<ViewTransition
+						default="none"
+						enter={{ default: "slide-in", forward: "slide-in", backward: "slide-back" }}
+						exit={{ default: "slide-in", forward: "slide-in", backward: "slide-back" }}
+					>
+						<div className="mx-auto flex min-h-full w-full max-w-6xl flex-col justify-center">
+							<SlideArchitectureAndImplementation />
+						</div>
+					</ViewTransition>
+				</Activity>
+				<Activity mode={currentSlide.Id === implementationGoalsMetadata.Id ? "visible" : "hidden"}>
+					<ViewTransition
+						default="none"
+						enter={{ default: "slide-in", forward: "slide-in", backward: "slide-back" }}
+						exit={{ default: "slide-in", forward: "slide-in", backward: "slide-back" }}
+					>
+						<div className="mx-auto flex min-h-full w-full max-w-6xl flex-col justify-center">
+							<SlideImplementationGoals />
 						</div>
 					</ViewTransition>
 				</Activity>

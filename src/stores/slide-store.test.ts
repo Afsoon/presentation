@@ -18,6 +18,13 @@ describe("slide store", () => {
 			{ Id: "what-is-pgtest", name: "What is pgtest?", hasSubslides: false, position: 2 },
 			{ Id: "why-am-i-building-it", name: "Why am I building it?", hasSubslides: false, position: 3 },
 			{ Id: "reasons-for-building-pgtest", name: "Reasons for building PgTest", hasSubslides: true, position: 4 },
+			{
+				Id: "architecture-and-implementation",
+				name: "Architecture and implementation",
+				hasSubslides: false,
+				position: 5,
+			},
+			{ Id: "implementation-goals", name: "Implementation goals", hasSubslides: true, position: 6 },
 		]);
 		expect(snapshot.currentSlide).toBe(snapshot.slides[0]);
 	});
