@@ -36,6 +36,15 @@ import {
 	metadata as explicitCleanupMetadata,
 } from "@/slides/slide_16_explicit_cleanup_database_command";
 import { SlideV01Results, metadata as v01ResultsMetadata } from "@/slides/slide_17_v0_1_results";
+import { SlideV02Implementation, metadata as v02ImplementationMetadata } from "@/slides/slide_18_v0_2_implementation";
+import { SlideChangesDoneForV02, metadata as v02ChangesMetadata } from "@/slides/slide_19_changes_done_for_v0_2";
+import { SlideConclusion, metadata as conclusionMetadata } from "@/slides/slide_20_conclusion";
+import {
+	SlideThingsThatDidntWork,
+	metadata as things_that_didnt_workMetadata,
+} from "@/slides/slide_21_things_that_didnt_work";
+import { SlideResults, metadata as resultsMetadata } from "@/slides/slide_22_results";
+import { SlideNextSteps, metadata as next_stepsMetadata } from "@/slides/slide_23_next_steps";
 import { useSlides } from "@/stores/use-slides";
 
 export const Route = createFileRoute("/")({
@@ -264,6 +273,72 @@ function Home() {
 					>
 						<div className="mx-auto flex min-h-full w-full max-w-6xl flex-col justify-center">
 							<SlideV01Results />
+						</div>
+					</ViewTransition>
+				</Activity>
+				<Activity mode={currentSlide.Id === v02ImplementationMetadata.Id ? "visible" : "hidden"}>
+					<ViewTransition
+						default="none"
+						enter={{ default: "slide-in", forward: "slide-in", backward: "slide-back" }}
+						exit={{ default: "slide-in", forward: "slide-in", backward: "slide-back" }}
+					>
+						<div className="mx-auto flex min-h-full w-full max-w-6xl flex-col justify-center">
+							<SlideV02Implementation />
+						</div>
+					</ViewTransition>
+				</Activity>
+				<Activity mode={currentSlide.Id === v02ChangesMetadata.Id ? "visible" : "hidden"}>
+					<ViewTransition
+						default="none"
+						enter={{ default: "slide-in", forward: "slide-in", backward: "slide-back" }}
+						exit={{ default: "slide-in", forward: "slide-in", backward: "slide-back" }}
+					>
+						<div className="mx-auto flex min-h-full w-full max-w-6xl flex-col justify-center">
+							<SlideChangesDoneForV02 />
+						</div>
+					</ViewTransition>
+				</Activity>
+				<Activity mode={currentSlide.Id === conclusionMetadata.Id ? "visible" : "hidden"}>
+					<ViewTransition
+						default="none"
+						enter={{ default: "slide-in", forward: "slide-in", backward: "slide-back" }}
+						exit={{ default: "slide-in", forward: "slide-in", backward: "slide-back" }}
+					>
+						<div className="mx-auto flex min-h-full w-full max-w-6xl flex-col justify-center">
+							<SlideConclusion />
+						</div>
+					</ViewTransition>
+				</Activity>
+				<Activity mode={currentSlide.Id === things_that_didnt_workMetadata.Id ? "visible" : "hidden"}>
+					<ViewTransition
+						default="none"
+						enter={{ default: "slide-in", forward: "slide-in", backward: "slide-back" }}
+						exit={{ default: "slide-in", forward: "slide-in", backward: "slide-back" }}
+					>
+						<div className="mx-auto flex min-h-full w-full max-w-6xl flex-col justify-center">
+							<SlideThingsThatDidntWork />
+						</div>
+					</ViewTransition>
+				</Activity>
+				<Activity mode={currentSlide.Id === resultsMetadata.Id ? "visible" : "hidden"}>
+					<ViewTransition
+						default="none"
+						enter={{ default: "slide-in", forward: "slide-in", backward: "slide-back" }}
+						exit={{ default: "slide-in", forward: "slide-in", backward: "slide-back" }}
+					>
+						<div className="mx-auto flex min-h-full w-full max-w-6xl flex-col justify-center">
+							<SlideResults />
+						</div>
+					</ViewTransition>
+				</Activity>
+				<Activity mode={currentSlide.Id === next_stepsMetadata.Id ? "visible" : "hidden"}>
+					<ViewTransition
+						default="none"
+						enter={{ default: "slide-in", forward: "slide-in", backward: "slide-back" }}
+						exit={{ default: "slide-in", forward: "slide-in", backward: "slide-back" }}
+					>
+						<div className="mx-auto flex min-h-full w-full max-w-6xl flex-col justify-center">
+							<SlideNextSteps />
 						</div>
 					</ViewTransition>
 				</Activity>

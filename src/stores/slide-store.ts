@@ -15,6 +15,12 @@ import { metadata as extractIoMetadata } from "@/slides/slide_14_extract_io_from
 import { metadata as uncappedPoolMetadata } from "@/slides/slide_15_not_capping_the_pool";
 import { metadata as explicitCleanupMetadata } from "@/slides/slide_16_explicit_cleanup_database_command";
 import { metadata as v01ResultsMetadata } from "@/slides/slide_17_v0_1_results";
+import { metadata as v02ImplementationMetadata } from "@/slides/slide_18_v0_2_implementation";
+import { metadata as v02ChangesMetadata } from "@/slides/slide_19_changes_done_for_v0_2";
+import { metadata as conclusionMetadata } from "@/slides/slide_20_conclusion";
+import { metadata as things_that_didnt_workMetadata } from "@/slides/slide_21_things_that_didnt_work";
+import { metadata as resultsMetadata } from "@/slides/slide_22_results";
+import { metadata as next_stepsMetadata } from "@/slides/slide_23_next_steps";
 import type { SlideMetadata } from "@/slides/types";
 
 export type SlideDirection = "left" | "right";
@@ -55,6 +61,12 @@ export const defaultSlideState: SlideInitialState = {
 		{ ...uncappedPoolMetadata, position: 14 },
 		{ ...explicitCleanupMetadata, position: 15 },
 		{ ...v01ResultsMetadata, position: 16 },
+		{ ...v02ImplementationMetadata, position: 17 },
+		{ ...v02ChangesMetadata, position: 18 },
+		{ ...conclusionMetadata, position: 19 },
+		{ ...things_that_didnt_workMetadata, position: 20 },
+		{ ...resultsMetadata, position: 21 },
+		{ ...next_stepsMetadata, position: 22 },
 	],
 	currentPosition: 0,
 	direction: null,

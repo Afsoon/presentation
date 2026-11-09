@@ -9,8 +9,14 @@ import type { cleanupDatabaseTriggerMachine } from "@/slides/slide_11_cleanup_da
 import type { pocResultsMachine } from "@/slides/slide_12_poc_results/slide_12_poc_results.machine";
 import type { extractIoMachine } from "@/slides/slide_14_extract_io_from_manager/slide_14_extract_io_from_manager.machine";
 import type { v01ResultsMachine } from "@/slides/slide_17_v0_1_results/slide_17_v0_1_results.machine";
+import type { v02ChangesMachine } from "@/slides/slide_19_changes_done_for_v0_2/slide_19_changes_done_for_v0_2.machine";
+import type { thingsThatDidntWorkMachine } from "@/slides/slide_21_things_that_didnt_work/slide_21_things_that_didnt_work.machine";
+import type { nextStepsMachine } from "@/slides/slide_23_next_steps/slide_23_next_steps.machine";
 
 type SlideActor =
+	| ActorRefFrom<typeof nextStepsMachine>
+	| ActorRefFrom<typeof thingsThatDidntWorkMachine>
+	| ActorRefFrom<typeof v02ChangesMachine>
 	| ActorRefFrom<typeof tableOfContentsMachine>
 	| ActorRefFrom<typeof reasonsMachine>
 	| ActorRefFrom<typeof implementationGoalsMachine>
