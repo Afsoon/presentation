@@ -10,7 +10,7 @@ const variants = {
 	h2: { tag: "h2", className: "text-3xl font-semibold" },
 	h3: { tag: "h3", className: "text-2xl font-semibold max-sm:w-full" },
 	h4: { tag: "h4", className: "text-xl font-semibold" },
-	p: { tag: "p", className: "leading-relaxed text-muted-foreground" },
+	p: { tag: "p", className: "text-lg leading-relaxed text-foreground sm:text-xl" },
 	"p-small": { tag: "p", className: "text-sm font-medium text-muted-foreground" },
 	quote: { tag: "blockquote", className: "max-w-2xl border-l-2 pl-6 italic" },
 	code: { tag: "code", className: "bg-muted rounded-md px-1 py-0.5 font-mono text-sm font-semibold" },

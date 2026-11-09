@@ -30,6 +30,12 @@ import { SlideCleanupDatabaseTrigger, metadata as cleanupMetadata } from "@/slid
 import { SlidePocResults, metadata as pocResultsMetadata } from "@/slides/slide_12_poc_results";
 import { SlideV01Implementation, metadata as v01ImplementationMetadata } from "@/slides/slide_13_v0_1_implementation";
 import { SlideExtractIoFromManager, metadata as extractIoMetadata } from "@/slides/slide_14_extract_io_from_manager";
+import { SlideNotCappingThePool, metadata as uncappedPoolMetadata } from "@/slides/slide_15_not_capping_the_pool";
+import {
+	SlideExplicitCleanupDatabaseCommand,
+	metadata as explicitCleanupMetadata,
+} from "@/slides/slide_16_explicit_cleanup_database_command";
+import { SlideV01Results, metadata as v01ResultsMetadata } from "@/slides/slide_17_v0_1_results";
 import { useSlides } from "@/stores/use-slides";
 
 export const Route = createFileRoute("/")({
@@ -225,6 +231,39 @@ function Home() {
 					>
 						<div className="mx-auto flex min-h-full w-full max-w-6xl flex-col justify-center">
 							<SlideExtractIoFromManager />
+						</div>
+					</ViewTransition>
+				</Activity>
+				<Activity mode={currentSlide.Id === uncappedPoolMetadata.Id ? "visible" : "hidden"}>
+					<ViewTransition
+						default="none"
+						enter={{ default: "slide-in", forward: "slide-in", backward: "slide-back" }}
+						exit={{ default: "slide-in", forward: "slide-in", backward: "slide-back" }}
+					>
+						<div className="mx-auto flex min-h-full w-full max-w-6xl flex-col justify-center">
+							<SlideNotCappingThePool />
+						</div>
+					</ViewTransition>
+				</Activity>
+				<Activity mode={currentSlide.Id === explicitCleanupMetadata.Id ? "visible" : "hidden"}>
+					<ViewTransition
+						default="none"
+						enter={{ default: "slide-in", forward: "slide-in", backward: "slide-back" }}
+						exit={{ default: "slide-in", forward: "slide-in", backward: "slide-back" }}
+					>
+						<div className="mx-auto flex min-h-full w-full max-w-6xl flex-col justify-center">
+							<SlideExplicitCleanupDatabaseCommand />
+						</div>
+					</ViewTransition>
+				</Activity>
+				<Activity mode={currentSlide.Id === v01ResultsMetadata.Id ? "visible" : "hidden"}>
+					<ViewTransition
+						default="none"
+						enter={{ default: "slide-in", forward: "slide-in", backward: "slide-back" }}
+						exit={{ default: "slide-in", forward: "slide-in", backward: "slide-back" }}
+					>
+						<div className="mx-auto flex min-h-full w-full max-w-6xl flex-col justify-center">
+							<SlideV01Results />
 						</div>
 					</ViewTransition>
 				</Activity>

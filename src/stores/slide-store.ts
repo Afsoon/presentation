@@ -12,6 +12,9 @@ import { metadata as cleanupMetadata } from "@/slides/slide_11_cleanup_database_
 import { metadata as pocResultsMetadata } from "@/slides/slide_12_poc_results";
 import { metadata as v01ImplementationMetadata } from "@/slides/slide_13_v0_1_implementation";
 import { metadata as extractIoMetadata } from "@/slides/slide_14_extract_io_from_manager";
+import { metadata as uncappedPoolMetadata } from "@/slides/slide_15_not_capping_the_pool";
+import { metadata as explicitCleanupMetadata } from "@/slides/slide_16_explicit_cleanup_database_command";
+import { metadata as v01ResultsMetadata } from "@/slides/slide_17_v0_1_results";
 import type { SlideMetadata } from "@/slides/types";
 
 export type SlideDirection = "left" | "right";
@@ -49,6 +52,9 @@ export const defaultSlideState: SlideInitialState = {
 		{ ...pocResultsMetadata, position: 11 },
 		{ ...v01ImplementationMetadata, position: 12 },
 		{ ...extractIoMetadata, position: 13 },
+		{ ...uncappedPoolMetadata, position: 14 },
+		{ ...explicitCleanupMetadata, position: 15 },
+		{ ...v01ResultsMetadata, position: 16 },
 	],
 	currentPosition: 0,
 	direction: null,
