@@ -35,6 +35,8 @@ describe("slide store", () => {
 			{ Id: "database-pool-strategy", name: "Database Pool Strategy", hasSubslides: true, position: 9 },
 			{ Id: "cleanup-database-trigger", name: "Cleanup database trigger", hasSubslides: true, position: 10 },
 			{ Id: "poc-results", name: "PoC Results", hasSubslides: true, position: 11 },
+			{ Id: "v0-1-implementation", name: "v0.1 implementation", hasSubslides: false, position: 12 },
+			{ Id: "extract-io-from-manager", name: "Extract IO from manager and split it", hasSubslides: true, position: 13 },
 		]);
 		expect(snapshot.currentSlide).toBe(snapshot.slides[0]);
 	});

@@ -28,6 +28,8 @@ import { SlideClientConnection, metadata as clientConnectionMetadata } from "@/s
 import { SlideDatabasePoolStrategy, metadata as databasePoolMetadata } from "@/slides/slide_10_database_pool_strategy";
 import { SlideCleanupDatabaseTrigger, metadata as cleanupMetadata } from "@/slides/slide_11_cleanup_database_trigger";
 import { SlidePocResults, metadata as pocResultsMetadata } from "@/slides/slide_12_poc_results";
+import { SlideV01Implementation, metadata as v01ImplementationMetadata } from "@/slides/slide_13_v0_1_implementation";
+import { SlideExtractIoFromManager, metadata as extractIoMetadata } from "@/slides/slide_14_extract_io_from_manager";
 import { useSlides } from "@/stores/use-slides";
 
 export const Route = createFileRoute("/")({
@@ -201,6 +203,28 @@ function Home() {
 					>
 						<div className="mx-auto flex min-h-full w-full max-w-6xl flex-col justify-center">
 							<SlidePocResults />
+						</div>
+					</ViewTransition>
+				</Activity>
+				<Activity mode={currentSlide.Id === v01ImplementationMetadata.Id ? "visible" : "hidden"}>
+					<ViewTransition
+						default="none"
+						enter={{ default: "slide-in", forward: "slide-in", backward: "slide-back" }}
+						exit={{ default: "slide-in", forward: "slide-in", backward: "slide-back" }}
+					>
+						<div className="mx-auto flex min-h-full w-full max-w-6xl flex-col justify-center">
+							<SlideV01Implementation />
+						</div>
+					</ViewTransition>
+				</Activity>
+				<Activity mode={currentSlide.Id === extractIoMetadata.Id ? "visible" : "hidden"}>
+					<ViewTransition
+						default="none"
+						enter={{ default: "slide-in", forward: "slide-in", backward: "slide-back" }}
+						exit={{ default: "slide-in", forward: "slide-in", backward: "slide-back" }}
+					>
+						<div className="mx-auto flex min-h-full w-full max-w-6xl flex-col justify-center">
+							<SlideExtractIoFromManager />
 						</div>
 					</ViewTransition>
 				</Activity>

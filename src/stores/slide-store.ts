@@ -10,6 +10,8 @@ import { metadata as clientConnectionMetadata } from "@/slides/slide_9_client_co
 import { metadata as databasePoolMetadata } from "@/slides/slide_10_database_pool_strategy";
 import { metadata as cleanupMetadata } from "@/slides/slide_11_cleanup_database_trigger";
 import { metadata as pocResultsMetadata } from "@/slides/slide_12_poc_results";
+import { metadata as v01ImplementationMetadata } from "@/slides/slide_13_v0_1_implementation";
+import { metadata as extractIoMetadata } from "@/slides/slide_14_extract_io_from_manager";
 import type { SlideMetadata } from "@/slides/types";
 
 export type SlideDirection = "left" | "right";
@@ -45,6 +47,8 @@ export const defaultSlideState: SlideInitialState = {
 		{ ...databasePoolMetadata, position: 9 },
 		{ ...cleanupMetadata, position: 10 },
 		{ ...pocResultsMetadata, position: 11 },
+		{ ...v01ImplementationMetadata, position: 12 },
+		{ ...extractIoMetadata, position: 13 },
 	],
 	currentPosition: 0,
 	direction: null,
