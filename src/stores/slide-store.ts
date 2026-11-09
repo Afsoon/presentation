@@ -8,6 +8,7 @@ import { metadata as implementationGoalsMetadata } from "@/slides/slide_7_implem
 import { metadata as proofOfConceptMetadata } from "@/slides/slide_8_proof_of_concept_implementation";
 import { metadata as clientConnectionMetadata } from "@/slides/slide_9_client_connection";
 import { metadata as databasePoolMetadata } from "@/slides/slide_10_database_pool_strategy";
+import { metadata as cleanupMetadata } from "@/slides/slide_11_cleanup_database_trigger";
 import type { SlideMetadata } from "@/slides/types";
 
 export type SlideDirection = "left" | "right";
@@ -41,6 +42,7 @@ export const defaultSlideState: SlideInitialState = {
 		{ ...proofOfConceptMetadata, position: 7 },
 		{ ...clientConnectionMetadata, position: 8 },
 		{ ...databasePoolMetadata, position: 9 },
+		{ ...cleanupMetadata, position: 10 },
 	],
 	currentPosition: 0,
 	direction: null,

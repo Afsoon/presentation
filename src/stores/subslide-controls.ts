@@ -5,13 +5,15 @@ import type { reasonsMachine } from "@/slides/slide_5_reasons_for_building_pgtes
 import type { implementationGoalsMachine } from "@/slides/slide_7_implementation_goals/slide_7_implementation_goals.machine";
 import type { clientConnectionMachine } from "@/slides/slide_9_client_connection/slide_9_client_connection.machine";
 import type { databasePoolStrategyMachine } from "@/slides/slide_10_database_pool_strategy/slide_10_database_pool_strategy.machine";
+import type { cleanupDatabaseTriggerMachine } from "@/slides/slide_11_cleanup_database_trigger/slide_11_cleanup_database_trigger.machine";
 
 type SlideActor =
 	| ActorRefFrom<typeof tableOfContentsMachine>
 	| ActorRefFrom<typeof reasonsMachine>
 	| ActorRefFrom<typeof implementationGoalsMachine>
 	| ActorRefFrom<typeof clientConnectionMachine>
-	| ActorRefFrom<typeof databasePoolStrategyMachine>;
+	| ActorRefFrom<typeof databasePoolStrategyMachine>
+	| ActorRefFrom<typeof cleanupDatabaseTriggerMachine>;
 
 export function createSubslideControlsStore() {
 	const actors = new Map<string, SlideActor>();

@@ -77,6 +77,14 @@ describe("slide route search", () => {
 		expect(html).not.toContain("animation placeholder");
 	});
 
+	it("opens cleanup database trigger with its subtitle before the title and no columns", async () => {
+		const router = await loadRouter("/?slide=cleanup-database-trigger");
+		const html = renderToString(<RouterProvider router={router} />);
+		expect(html).toMatch(/PoC Implementation[\s\S]*<h2[^>]*>Cleanup database trigger<\/h2>/);
+		expect(html).not.toContain('aria-label="IntegreSQL"');
+		expect(html).not.toContain('aria-label="PgTest"');
+	});
+
 	it("initializes isolated server requests from their URLs", async () => {
 		const [first, second] = await Promise.all([
 			loadRouter("/?slide=table-of-contents"),
