@@ -25,6 +25,7 @@ import {
 	metadata as proofOfConceptMetadata,
 } from "@/slides/slide_8_proof_of_concept_implementation";
 import { SlideClientConnection, metadata as clientConnectionMetadata } from "@/slides/slide_9_client_connection";
+import { SlideDatabasePoolStrategy, metadata as databasePoolMetadata } from "@/slides/slide_10_database_pool_strategy";
 import { useSlides } from "@/stores/use-slides";
 
 export const Route = createFileRoute("/")({
@@ -40,7 +41,7 @@ function Home() {
 		<main
 			id="presentation"
 			aria-label="Presentation"
-			className="relative isolate grid h-dvh w-full grid-rows-[minmax(0,1fr)_auto] bg-background text-foreground"
+			className="relative isolate grid h-dvh w-full grid-rows-[minmax(0,1fr)] overflow-hidden bg-background text-foreground"
 		>
 			<div
 				aria-hidden="true"
@@ -67,7 +68,7 @@ function Home() {
 				aria-label={currentSlide.name}
 				aria-roledescription="slide"
 				tabIndex={0}
-				className="min-h-0 overflow-y-auto p-6 outline-offset-[-4px] sm:p-12 lg:p-20"
+				className="min-h-0 overflow-hidden p-6 outline-offset-[-4px] sm:p-12 lg:p-20"
 			>
 				<Activity mode={currentSlide.Id === titleMetadata.Id ? "visible" : "hidden"}>
 					<ViewTransition
@@ -168,10 +169,19 @@ function Home() {
 						</div>
 					</ViewTransition>
 				</Activity>
+				<Activity mode={currentSlide.Id === databasePoolMetadata.Id ? "visible" : "hidden"}>
+					<ViewTransition
+						default="none"
+						enter={{ default: "slide-in", forward: "slide-in", backward: "slide-back" }}
+						exit={{ default: "slide-in", forward: "slide-in", backward: "slide-back" }}
+					>
+						<div className="mx-auto flex min-h-full w-full max-w-6xl flex-col justify-center">
+							<SlideDatabasePoolStrategy />
+						</div>
+					</ViewTransition>
+				</Activity>
 			</section>
-			<footer className="relative min-h-40">
-				<KeyboardNavigation />
-			</footer>
+			<KeyboardNavigation />
 		</main>
 	);
 }

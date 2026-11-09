@@ -24,26 +24,19 @@ describe("slide route search", () => {
 		expect(html).toContain('aria-label="Table of contents"');
 		expect(html).toContain("What is PgTest?");
 		expect(html).not.toContain("Why am I building it?");
-		const buttons = html.match(/<button\b[^>]*>[\s\S]*?<\/button>/g) ?? [];
-		expect(buttons.find((button) => button.includes("Go to previous subslide"))).toContain('disabled=""');
-		expect(buttons.find((button) => button.includes("Go to next subslide"))).toContain('disabled=""');
-		// Firefox must not restore a previous disabled state before React hydrates.
-		const navigationButtons = buttons.filter((button) => /Go to (previous|next) (subslide|slide)/.test(button));
-		expect(navigationButtons).toHaveLength(4);
-		for (const button of navigationButtons) expect(button).toContain('autoComplete="off"');
+		expect(html).not.toContain("<footer");
+		expect(html).not.toContain('aria-label="Slide navigation"');
 	});
 
 	it.each([
 		{ id: "reasons-for-building-pgtest", content: "Isolating tests with transactions" },
 		{ id: "title", content: "" },
-	])("disables subslide controls before actor registration for $id", async ({ id, content }) => {
+	])("renders $id without footer controls", async ({ id, content }) => {
 		const router = await loadRouter(`/?slide=${id}`);
 		const html = renderToString(<RouterProvider router={router} />);
 		expect(html).toContain(content);
-		const buttons = html.match(/<button\b[^>]*>[\s\S]*?<\/button>/g) ?? [];
-		expect(buttons.find((button) => button.includes("Go to previous subslide"))).toContain('disabled=""');
-		const down = buttons.find((button) => button.includes("Go to next subslide"));
-		expect(down).toContain('disabled=""');
+		expect(html).not.toContain("<footer");
+		expect(html).not.toContain('aria-label="Slide navigation"');
 	});
 
 	it("server-renders the architecture divider with only its title", async () => {
@@ -73,6 +66,15 @@ describe("slide route search", () => {
 		expect(html).not.toContain("generate unique IDs");
 		expect(html).not.toContain('aria-label="IntegreSQL"');
 		expect(html).not.toContain('aria-label="PgTest"');
+	});
+
+	it("opens the database pool slide with only its subtitle and title", async () => {
+		const router = await loadRouter("/?slide=database-pool-strategy");
+		const html = renderToString(<RouterProvider router={router} />);
+		expect(html).toMatch(/PoC Implementation[\s\S]*<h2[^>]*>Database Pool Strategy<\/h2>/);
+		expect(html).not.toContain('aria-label="IntegreSQL"');
+		expect(html).not.toContain('aria-label="PgTest"');
+		expect(html).not.toContain("animation placeholder");
 	});
 
 	it("initializes isolated server requests from their URLs", async () => {

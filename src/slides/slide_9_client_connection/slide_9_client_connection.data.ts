@@ -6,6 +6,7 @@ export const integresql = {
 
 export const pgtest = {
 	title: "PgTest",
+	// TODO: Change We move from a REST API to be a Postgres Proxy in front our postgres.
 	content: "The PostgreSQL client needs to send the lease ID as part of the database name.",
 	problem: "We rely on the user to generate unique IDs.",
 };
