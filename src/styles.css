@@ -20,9 +20,22 @@ body {
 }
 
 ::view-transition-group(.slide-in),
-::view-transition-group(.slide-back) {
+::view-transition-group(.slide-back),
+::view-transition-group(.slide-progress) {
 	animation-duration: 400ms;
 	animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+::view-transition-group(.slide-progress) {
+	z-index: 30;
+}
+
+::view-transition-old(.slide-progress),
+::view-transition-new(.slide-progress) {
+	animation: none;
+	width: 100%;
+	height: 100%;
+	mix-blend-mode: normal;
 }
 
 ::view-transition-old(.slide-in),
@@ -90,6 +103,7 @@ body {
 @media (prefers-reduced-motion: reduce) {
 	::view-transition-group(.slide-in),
 	::view-transition-group(.slide-back),
+	::view-transition-group(.slide-progress),
 	::view-transition-old(.slide-in),
 	::view-transition-old(.slide-back),
 	::view-transition-new(.slide-in),

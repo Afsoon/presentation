@@ -4,6 +4,7 @@ import { Activity, lazy, Suspense, useDeferredValue, ViewTransition } from "reac
 import { KeyboardNavigation } from "@/components/keyboard_navigation";
 import { AnimatedThemeToggler } from "@/components/ui/animated-theme-toggler";
 import { GridPattern } from "@/components/ui/grid-pattern";
+import { Progress, ProgressIndicator } from "@/components/ui/progress";
 import LiquidWaveSpinner from "@/components/ui/spinner";
 import { getInitialPresentation } from "@/server/initial-presentation";
 import {
@@ -120,13 +121,26 @@ function Home() {
 	const { snapshot } = useSlides();
 	const { theme } = getRouteApi("__root__").useLoaderData();
 	// Defer rendering so synchronous store updates can activate React ViewTransitions.
-	const { currentSlide } = useDeferredValue(snapshot);
+	const { currentSlide, currentPosition, slides } = useDeferredValue(snapshot);
 	return (
 		<main
 			id="presentation"
 			aria-label="Presentation"
 			className="relative isolate grid h-dvh w-full grid-rows-[minmax(0,1fr)] overflow-hidden bg-background text-foreground"
 		>
+			<Progress
+				aria-label="Slide progress"
+				value={currentPosition + 1}
+				max={slides.length}
+				aria-valuetext={`Slide ${currentPosition + 1} of ${slides.length}`}
+				className="pointer-events-none absolute inset-x-0 top-0 z-30 gap-0 [&_[data-slot=progress-track]]:h-1 [&_[data-slot=progress-track]]:rounded-none"
+				indicator={
+					<ViewTransition default="none" update="slide-progress">
+						{/* Capture the final width so the View Transition animates between slide positions. */}
+						<ProgressIndicator className="transition-none" />
+					</ViewTransition>
+				}
+			/>
 			<div
 				aria-hidden="true"
 				className="opacity-50 pointer-events-none absolute inset-0 -z-10 overflow-hidden [mask-image:radial-gradient(ellipse_at_center,white_30%,transparent_70%)]"

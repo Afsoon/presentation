@@ -40,7 +40,9 @@ describe("slide route search", () => {
 
 		const html = await renderRouter(router);
 		expect(html).toContain("What is PgTest?");
-		expect(html).not.toContain('aria-label="Loading slide"');
+		// A streamed response can retain the fallback followed by its replacement script.
+		const settledHtml = renderToString(<RouterProvider router={router} />);
+		expect(settledHtml).not.toContain('aria-label="Loading slide"');
 	});
 
 	it.each(["light", "dark"] as const)("server-renders the %s theme", async (theme) => {
