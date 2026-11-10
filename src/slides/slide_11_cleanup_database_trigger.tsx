@@ -1,10 +1,9 @@
-import { useActorRef, useSelector } from "@xstate/react";
+import { useSelector } from "@xstate/react";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
-import { useEffect } from "react";
 
 import Typography from "@/components/ui/typography";
 import { cleanupMetadata as metadata } from "@/slides/metadata";
-import { subslideControlsStore } from "@/stores/subslide-controls";
+import { useSlideActor } from "@/stores/use-slide-actor";
 
 import { integresql, pgtest } from "./slide_11_cleanup_database_trigger/slide_11_cleanup_database_trigger.data";
 import { cleanupDatabaseTriggerMachine } from "./slide_11_cleanup_database_trigger/slide_11_cleanup_database_trigger.machine";
@@ -12,8 +11,7 @@ import { cleanupDatabaseTriggerMachine } from "./slide_11_cleanup_database_trigg
 export { cleanupMetadata as metadata } from "@/slides/metadata";
 
 export const SlideCleanupDatabaseTrigger = () => {
-	const actor = useActorRef(cleanupDatabaseTriggerMachine, { id: metadata.Id });
-	useEffect(() => subslideControlsStore.registerActor(actor), [actor]);
+	const actor = useSlideActor(cleanupDatabaseTriggerMachine, metadata.Id);
 	const state = useSelector(actor, (snapshot) => snapshot.value);
 	const reduceMotion = useReducedMotion();
 	const hidden = { opacity: 0, x: reduceMotion ? 0 : 16 };
@@ -26,7 +24,7 @@ export const SlideCleanupDatabaseTrigger = () => {
 				<Typography level="h2">Cleanup database trigger</Typography>
 			</header>
 			<div className="h-[32rem] overflow-hidden">
-				<div className="grid items-stretch gap-8 lg:grid-cols-2">
+				<div className="grid items-stretch gap-8 @min-[1024px]/slide:grid-cols-2">
 					<AnimatePresence initial={false}>
 						{state !== "heading" && (
 							<motion.section

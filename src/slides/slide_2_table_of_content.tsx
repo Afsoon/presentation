@@ -1,8 +1,7 @@
-import { useActorRef, useSelector } from "@xstate/react";
-import { useEffect } from "react";
+import { useSelector } from "@xstate/react";
 
 import { tableOfContentsMetadata as metadata } from "@/slides/metadata";
-import { subslideControlsStore } from "@/stores/subslide-controls";
+import { useSlideActor } from "@/stores/use-slide-actor";
 
 import {
 	selectVisibleSections,
@@ -13,13 +12,14 @@ import { TableOfContentsList } from "./slide_2_table_of_content/table-of-content
 export { tableOfContentsMetadata as metadata } from "@/slides/metadata";
 
 export const SlideTableOfContent = () => {
-	const actor = useActorRef(tableOfContentsMachine, { id: metadata.Id });
-	useEffect(() => subslideControlsStore.registerActor(actor), [actor]);
+	const actor = useSlideActor(tableOfContentsMachine, metadata.Id);
 	const visibleSections = useSelector(actor, selectVisibleSections);
 
 	return (
 		<div className="space-y-10">
-			<h2 className="text-3xl font-semibold text-balance sm:text-5xl lg:text-6xl">Table of contents</h2>
+			<h2 className="text-3xl font-semibold text-balance @min-[640px]/slide:text-5xl @min-[1024px]/slide:text-6xl">
+				Table of contents
+			</h2>
 			<TableOfContentsList items={visibleSections} />
 		</div>
 	);

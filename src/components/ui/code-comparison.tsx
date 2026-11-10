@@ -112,10 +112,10 @@ export function CodeComparison({
 	return (
 		<div className="mx-auto h-full w-full max-w-5xl">
 			<div className="group border-border relative h-full w-full overflow-hidden rounded-md border">
-				<div className="relative grid h-full grid-rows-2 md:grid-cols-2 md:grid-rows-1 [&>div]:min-h-0 [&>div]:min-w-0">
+				<div className="relative grid h-full grid-rows-2 @min-[768px]/slide:grid-cols-2 @min-[768px]/slide:grid-rows-1 [&>div]:min-h-0 [&>div]:min-w-0">
 					<div
 						className={cn(
-							"leftside group/left border-primary/20 grid grid-rows-[auto_minmax(0,1fr)] md:border-r",
+							"leftside group/left border-primary/20 grid grid-rows-[auto_minmax(0,1fr)] @min-[768px]/slide:border-r",
 							hasLeftFocus &&
 								"[&>div>pre>code>:not(.focused)]:opacity-50! [&>div>pre>code>:not(.focused)]:blur-[0.095rem]!",
 							"[&>div>pre>code>:not(.focused)]:transition-all [&>div>pre>code>:not(.focused)]:duration-300",
@@ -130,7 +130,7 @@ export function CodeComparison({
 					</div>
 					<div
 						className={cn(
-							"rightside group/right border-primary/20 grid grid-rows-[auto_minmax(0,1fr)] border-t md:border-t-0",
+							"rightside group/right border-primary/20 grid grid-rows-[auto_minmax(0,1fr)] border-t @min-[768px]/slide:border-t-0",
 							hasRightFocus &&
 								"[&>div>pre>code>:not(.focused)]:opacity-50! [&>div>pre>code>:not(.focused)]:blur-[0.095rem]!",
 							"[&>div>pre>code>:not(.focused)]:transition-all [&>div>pre>code>:not(.focused)]:duration-300",
@@ -144,7 +144,7 @@ export function CodeComparison({
 						{renderCode(afterCode, highlightedAfter)}
 					</div>
 				</div>
-				<div className="border-primary/20 bg-accent text-foreground absolute top-1/2 left-1/2 hidden h-8 w-8 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-md border text-xs md:flex">
+				<div className="border-primary/20 bg-accent text-foreground absolute top-1/2 left-1/2 hidden h-8 w-8 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-md border text-xs @min-[768px]/slide:flex">
 					VS
 				</div>
 			</div>

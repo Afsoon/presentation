@@ -50,7 +50,7 @@ export function UncappedPoolAnimation() {
 					</span>
 				</div>
 				<div
-					className="relative grid min-h-36 grid-cols-4 content-start gap-2 sm:grid-cols-8"
+					className="relative grid min-h-36 grid-cols-4 content-start gap-2 @min-[640px]/slide:grid-cols-8"
 					aria-label="Database pool"
 				>
 					<AnimatePresence initial={false} mode="popLayout">
@@ -80,7 +80,7 @@ export function UncappedPoolAnimation() {
 					{frame.hidden > 0 ? `+ ${frame.hidden} earlier databases still allocated` : "\u00a0"}
 				</p>
 			</div>
-			<div className="grid gap-4 sm:grid-cols-2">
+			<div className="grid gap-4 @min-[640px]/slide:grid-cols-2">
 				<section
 					aria-label="Creation worker"
 					className="min-h-44 space-y-3 rounded-xl border bg-neutral-200 p-4 dark:bg-neutral-700/70"

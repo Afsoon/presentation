@@ -1,10 +1,9 @@
-import { useActorRef, useSelector } from "@xstate/react";
+import { useSelector } from "@xstate/react";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
-import { useEffect } from "react";
 
 import Typography from "@/components/ui/typography";
 import { extractIoMetadata as metadata } from "@/slides/metadata";
-import { subslideControlsStore } from "@/stores/subslide-controls";
+import { useSlideActor } from "@/stores/use-slide-actor";
 
 import { changes, description } from "./slide_14_extract_io_from_manager/slide_14_extract_io_from_manager.data";
 import {
@@ -16,8 +15,7 @@ import { WorkerDiagram } from "./slide_14_extract_io_from_manager/worker-diagram
 export { extractIoMetadata as metadata } from "@/slides/metadata";
 
 export const SlideExtractIoFromManager = () => {
-	const actor = useActorRef(extractIoMachine, { id: metadata.Id });
-	useEffect(() => subslideControlsStore.registerActor(actor), [actor]);
+	const actor = useSlideActor(extractIoMachine, metadata.Id);
 	const visibleChanges = useSelector(actor, selectVisibleChanges);
 	const stage = useSelector(actor, (snapshot) => snapshot.value);
 	const reduceMotion = useReducedMotion();
@@ -42,7 +40,7 @@ export const SlideExtractIoFromManager = () => {
 							<div className="space-y-10">
 								<Typography level="p">{description}</Typography>
 								{/* Keep every row in layout so text wrapping never moves the heading or earlier bullets. */}
-								<ul className="list-disc space-y-6 pl-8 text-xl leading-relaxed sm:text-2xl">
+								<ul className="list-disc space-y-6 pl-8 text-xl leading-relaxed @min-[640px]/slide:text-2xl">
 									{changes.map((result) => {
 										const visible = visibleChanges.includes(result);
 										return (

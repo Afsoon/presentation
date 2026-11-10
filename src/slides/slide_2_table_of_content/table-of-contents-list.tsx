@@ -3,7 +3,7 @@ import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 export function TableOfContentsList({ items }: { items: readonly string[] }) {
 	const reduceMotion = useReducedMotion();
 	return (
-		<ol className="h-72 list-decimal space-y-5 pl-8 text-xl sm:pl-10 sm:text-3xl">
+		<ol className="h-72 list-decimal space-y-5 pl-8 text-xl @min-[640px]/slide:pl-10 @min-[640px]/slide:text-3xl">
 			<AnimatePresence initial={false}>
 				{items.map((section) => (
 					<motion.li

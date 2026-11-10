@@ -1,10 +1,9 @@
-import { useActorRef, useSelector } from "@xstate/react";
+import { useSelector } from "@xstate/react";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
-import { useEffect } from "react";
 
 import Typography from "@/components/ui/typography";
 import { implementationGoalsMetadata as metadata } from "@/slides/metadata";
-import { subslideControlsStore } from "@/stores/subslide-controls";
+import { useSlideActor } from "@/stores/use-slide-actor";
 
 import { ImplementationGoalsDiagram } from "./slide_7_implementation_goals/implementation-goals-diagram";
 import {
@@ -15,8 +14,7 @@ import {
 export { implementationGoalsMetadata as metadata } from "@/slides/metadata";
 
 export const SlideImplementationGoals = () => {
-	const actor = useActorRef(implementationGoalsMachine, { id: metadata.Id });
-	useEffect(() => subslideControlsStore.registerActor(actor), [actor]);
+	const actor = useSlideActor(implementationGoalsMachine, metadata.Id);
 	const goal = useSelector(actor, selectImplementationGoal);
 	const stage = useSelector(actor, (snapshot) => snapshot.value);
 	const reduceMotion = useReducedMotion();

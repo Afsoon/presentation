@@ -3,10 +3,10 @@ import { useId } from "react";
 
 function Worker({ name, hasClient }: { name: string; hasClient: boolean }) {
 	return (
-		<div className="flex min-w-0 min-h-36 flex-col items-center justify-center gap-4 rounded-2xl border border-border bg-card p-2 sm:p-4 text-card-foreground shadow-lg">
-			<span className="w-full break-words text-center text-sm sm:text-lg font-semibold">{name}</span>
+		<div className="flex min-w-0 min-h-36 flex-col items-center justify-center gap-4 rounded-2xl border border-border bg-card p-2 @min-[640px]/slide:p-4 text-card-foreground shadow-lg">
+			<span className="w-full break-words text-center text-sm @min-[640px]/slide:text-lg font-semibold">{name}</span>
 			{hasClient && (
-				<div className="flex max-w-full flex-wrap items-center justify-center gap-2 rounded-lg border border-primary/50 bg-primary/15 px-2 sm:px-4 py-3 text-xs sm:text-sm text-center font-medium">
+				<div className="flex max-w-full flex-wrap items-center justify-center gap-2 rounded-lg border border-primary/50 bg-primary/15 px-2 @min-[640px]/slide:px-4 py-3 text-xs @min-[640px]/slide:text-sm text-center font-medium">
 					<DatabaseIcon aria-hidden="true" className="size-5 shrink-0" />
 					PG client
 				</div>
@@ -65,10 +65,10 @@ export function WorkerDiagram({ stage }: { stage: "before" | "after" }) {
 			<div role="group" aria-label="PgTest" className="relative rounded-2xl border-2 border-primary/50 bg-muted/30 p-4">
 				<span className="absolute -top-3 left-6 bg-background px-3 text-base font-semibold">PgTest</span>
 				<div
-					className={`grid min-h-[19.5rem] items-center ${after ? "grid-cols-[minmax(0,1fr)_clamp(1rem,5vw,5rem)_minmax(0,1fr)_clamp(1rem,5vw,5rem)_minmax(0,1fr)]" : "mx-auto max-w-3xl grid-cols-[minmax(0,1fr)_clamp(1rem,5vw,5rem)_minmax(0,1fr)]"}`}
+					className={`grid min-h-[19.5rem] items-center ${after ? "grid-cols-[minmax(0,1fr)_clamp(1rem,5cqw,5rem)_minmax(0,1fr)_clamp(1rem,5cqw,5rem)_minmax(0,1fr)]" : "mx-auto max-w-3xl grid-cols-[minmax(0,1fr)_clamp(1rem,5cqw,5rem)_minmax(0,1fr)]"}`}
 				>
-					<div className="flex min-w-0 min-h-36 items-center justify-center rounded-2xl border border-border bg-neutral-200 p-2 sm:p-4 dark:bg-neutral-700/70">
-						<div className="flex min-w-0 flex-col items-center gap-3 rounded-lg border bg-card px-2 sm:px-5 py-4 text-center text-sm sm:text-base font-semibold text-card-foreground">
+					<div className="flex min-w-0 min-h-36 items-center justify-center rounded-2xl border border-border bg-neutral-200 p-2 @min-[640px]/slide:p-4 dark:bg-neutral-700/70">
+						<div className="flex min-w-0 flex-col items-center gap-3 rounded-lg border bg-card px-2 @min-[640px]/slide:px-5 py-4 text-center text-sm @min-[640px]/slide:text-base font-semibold text-card-foreground">
 							<DatabaseIcon aria-hidden="true" className="size-8 text-primary" />
 							<span className="w-full break-words">Postgres Server</span>
 						</div>

@@ -1,11 +1,10 @@
-import { useActorRef, useSelector } from "@xstate/react";
+import { useSelector } from "@xstate/react";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
-import { useEffect } from "react";
 
 import { CodeComparison } from "@/components/ui/code-comparison";
 import Typography from "@/components/ui/typography";
 import { clientConnectionMetadata as metadata } from "@/slides/metadata";
-import { subslideControlsStore } from "@/stores/subslide-controls";
+import { useSlideActor } from "@/stores/use-slide-actor";
 
 import { connectionCode, integresql, pgtest } from "./slide_9_client_connection/slide_9_client_connection.data";
 import { clientConnectionMachine } from "./slide_9_client_connection/slide_9_client_connection.machine";
@@ -13,8 +12,7 @@ import { clientConnectionMachine } from "./slide_9_client_connection/slide_9_cli
 export { clientConnectionMetadata as metadata } from "@/slides/metadata";
 
 export const SlideClientConnection = () => {
-	const actor = useActorRef(clientConnectionMachine, { id: metadata.Id });
-	useEffect(() => subslideControlsStore.registerActor(actor), [actor]);
+	const actor = useSlideActor(clientConnectionMachine, metadata.Id);
 	const state = useSelector(actor, (snapshot) => snapshot.value);
 	const reduceMotion = useReducedMotion();
 	const hidden = { opacity: 0, y: reduceMotion ? 0 : 16 };
@@ -52,7 +50,7 @@ export const SlideClientConnection = () => {
 					) : state !== "heading" ? (
 						<motion.div
 							key="columns"
-							className="grid items-start gap-8 lg:grid-cols-2"
+							className="grid items-start gap-8 @min-[1024px]/slide:grid-cols-2"
 							initial={hidden}
 							animate={visible}
 							exit={hidden}

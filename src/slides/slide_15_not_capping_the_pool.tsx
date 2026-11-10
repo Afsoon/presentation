@@ -1,10 +1,9 @@
-import { useActorRef, useSelector } from "@xstate/react";
+import { useSelector } from "@xstate/react";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
-import { useEffect } from "react";
 
 import Typography from "@/components/ui/typography";
 import { uncappedPoolMetadata as metadata } from "@/slides/metadata";
-import { subslideControlsStore } from "@/stores/subslide-controls";
+import { useSlideActor } from "@/stores/use-slide-actor";
 
 import { uncappedPoolMachine } from "./slide_15_not_capping_the_pool/slide_15_not_capping_the_pool.machine";
 import { UncappedPoolAnimation } from "./slide_15_not_capping_the_pool/uncapped-pool-animation";
@@ -12,8 +11,7 @@ import { UncappedPoolAnimation } from "./slide_15_not_capping_the_pool/uncapped-
 export { uncappedPoolMetadata as metadata } from "@/slides/metadata";
 
 export const SlideNotCappingThePool = () => {
-	const actor = useActorRef(uncappedPoolMachine, { id: metadata.Id });
-	useEffect(() => subslideControlsStore.registerActor(actor), [actor]);
+	const actor = useSlideActor(uncappedPoolMachine, metadata.Id);
 	const stage = useSelector(actor, (snapshot) => snapshot.value);
 	const reduceMotion = useReducedMotion();
 	return (

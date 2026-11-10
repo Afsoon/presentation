@@ -1,10 +1,9 @@
-import { useActorRef, useSelector } from "@xstate/react";
+import { useSelector } from "@xstate/react";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
-import { useEffect } from "react";
 
 import Typography from "@/components/ui/typography";
 import { explicitCleanupMetadata as metadata } from "@/slides/metadata";
-import { subslideControlsStore } from "@/stores/subslide-controls";
+import { useSlideActor } from "@/stores/use-slide-actor";
 
 import { CleanupRoutingDiagram } from "./slide_16_explicit_cleanup_database_command/cleanup-routing-diagram";
 import { explicitCleanupMachine } from "./slide_16_explicit_cleanup_database_command/slide_16_explicit_cleanup_database_command.machine";
@@ -12,8 +11,7 @@ import { explicitCleanupMachine } from "./slide_16_explicit_cleanup_database_com
 export { explicitCleanupMetadata as metadata } from "@/slides/metadata";
 
 export const SlideExplicitCleanupDatabaseCommand = () => {
-	const actor = useActorRef(explicitCleanupMachine, { id: metadata.Id });
-	useEffect(() => subslideControlsStore.registerActor(actor), [actor]);
+	const actor = useSlideActor(explicitCleanupMachine, metadata.Id);
 	const stage = useSelector(actor, (snapshot) => snapshot.value);
 	const reduceMotion = useReducedMotion();
 	return (

@@ -1,10 +1,9 @@
-import { useActorRef, useSelector } from "@xstate/react";
+import { useSelector } from "@xstate/react";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
-import { useEffect } from "react";
 
 import Typography from "@/components/ui/typography";
 import { databasePoolMetadata as metadata } from "@/slides/metadata";
-import { subslideControlsStore } from "@/stores/subslide-controls";
+import { useSlideActor } from "@/stores/use-slide-actor";
 
 import { IntegresqlPoolAnimation } from "./slide_10_database_pool_strategy/integresql-pool-animation";
 import { PgtestPoolAnimation } from "./slide_10_database_pool_strategy/pgtest-pool-animation";
@@ -18,8 +17,7 @@ import {
 export { databasePoolMetadata as metadata } from "@/slides/metadata";
 
 export const SlideDatabasePoolStrategy = () => {
-	const actor = useActorRef(databasePoolStrategyMachine, { id: metadata.Id });
-	useEffect(() => subslideControlsStore.registerActor(actor), [actor]);
+	const actor = useSlideActor(databasePoolStrategyMachine, metadata.Id);
 	const snapshot = useSelector(actor, (state) => state);
 	const integresqlStage = selectIntegresqlPoolStage(snapshot);
 	const pgtestStage = selectPgtestPoolStage(snapshot);
@@ -34,8 +32,8 @@ export const SlideDatabasePoolStrategy = () => {
 				<Typography level="p-small">PoC Implementation</Typography>
 				<Typography level="h2">Database Pool Strategy</Typography>
 			</header>
-			<div className="h-[80rem] overflow-hidden lg:h-[42rem]">
-				<div className="grid items-stretch gap-8 lg:grid-cols-2">
+			<div className="h-[80rem] overflow-hidden @min-[1024px]/slide:h-[42rem]">
+				<div className="grid items-stretch gap-8 @min-[1024px]/slide:grid-cols-2">
 					<AnimatePresence initial={false}>
 						{snapshot.hasTag("integresql") && (
 							<motion.section

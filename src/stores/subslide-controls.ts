@@ -16,7 +16,7 @@ import type { thingsThatDidntWorkMachine } from "@/slides/slide_21_things_that_d
 import type { resultsMachine } from "@/slides/slide_22_results/slide_22_results.machine";
 import type { nextStepsMachine } from "@/slides/slide_23_next_steps/slide_23_next_steps.machine";
 
-type SlideActor =
+export type SlideActor =
 	| ActorRefFrom<typeof resultsMachine>
 	| ActorRefFrom<typeof explicitCleanupMachine>
 	| ActorRefFrom<typeof uncappedPoolMachine>
@@ -34,9 +34,11 @@ type SlideActor =
 	| ActorRefFrom<typeof extractIoMachine>;
 
 export function createSubslideControlsStore() {
+	const remembered = new Map<string, SlideActor>();
 	const actors = new Map<string, SlideActor>();
 	const actorListeners = new Set<() => void>();
 	return {
+		getRememberedActor: (id: string) => actors.get(id) ?? remembered.get(id),
 		getActor: (id: string) => actors.get(id),
 		subscribeActors: (listener: () => void) => {
 			actorListeners.add(listener);
@@ -46,6 +48,7 @@ export function createSubslideControlsStore() {
 		},
 		registerActor: (actor: SlideActor) => {
 			actors.set(actor.id, actor);
+			remembered.set(actor.id, actor);
 			actorListeners.forEach((listener) => listener());
 			return () => {
 				if (actors.get(actor.id) !== actor) return;

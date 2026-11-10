@@ -1,13 +1,12 @@
-import { useActorRef, useSelector } from "@xstate/react";
+import { useSelector } from "@xstate/react";
 import { MinusIcon, PlusIcon } from "lucide-react";
-import { useEffect } from "react";
 import { useRef } from "react";
 
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { Separator } from "@/components/ui/separator";
 import { cn } from "@/lib/utils";
 import { reasonsForBuildingPgtestMetadata as metadata } from "@/slides/metadata";
-import { subslideControlsStore } from "@/stores/subslide-controls";
+import { useSlideActor } from "@/stores/use-slide-actor";
 
 import { ReasonsSideList } from "./slide_5_reasons_for_building_pgtest/reasons-side-list";
 import { reasons } from "./slide_5_reasons_for_building_pgtest/slide_5_reasons_for_building_pgtest.data";
@@ -19,8 +18,7 @@ import {
 export { reasonsForBuildingPgtestMetadata as metadata } from "@/slides/metadata";
 
 export const SlideReasonsForBuildingPgtest = () => {
-	const actor = useActorRef(reasonsMachine, { id: metadata.Id });
-	useEffect(() => subslideControlsStore.registerActor(actor), [actor]);
+	const actor = useSlideActor(reasonsMachine, metadata.Id);
 	const hasEntered = useRef(false);
 
 	const { activeReason, rightItems, rightLabel } = useSelector(actor, selectReasonsDisplay);
@@ -29,7 +27,10 @@ export const SlideReasonsForBuildingPgtest = () => {
 	};
 
 	return (
-		<div ref={containerRef} className="grid items-start gap-8 lg:grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)]">
+		<div
+			ref={containerRef}
+			className="grid items-start gap-8 @min-[1024px]/slide:grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)]"
+		>
 			<Accordion
 				value={[activeReason]}
 				onValueChange={(values) => {
@@ -70,7 +71,7 @@ export const SlideReasonsForBuildingPgtest = () => {
 					</AccordionItem>
 				))}
 			</Accordion>
-			<Separator orientation="vertical" className="hidden rounded-full data-vertical:w-1 lg:block" />
+			<Separator orientation="vertical" className="hidden rounded-full data-vertical:w-1 @min-[1024px]/slide:block" />
 			<ReasonsSideList key={activeReason} items={rightItems} label={rightLabel} />
 		</div>
 	);
