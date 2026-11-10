@@ -16,3 +16,4 @@
 !tsr.config.json
 !vite.config.ts
 !wrangler.jsonc
+!components.json
