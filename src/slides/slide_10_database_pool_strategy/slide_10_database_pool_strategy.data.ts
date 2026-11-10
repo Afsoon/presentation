@@ -6,6 +6,6 @@ export const integresql = {
 
 export const pgtest = {
 	title: "PgTest",
-	content: "The same configuration, with the option to prewarm a batch of new databases after a certain threshold.",
+	content: "I kept the pool configuration and added a threshold to trigger prewarming a new batch of databases.",
 	problem: "Once the pool is full, this strategy no longer works.",
 };

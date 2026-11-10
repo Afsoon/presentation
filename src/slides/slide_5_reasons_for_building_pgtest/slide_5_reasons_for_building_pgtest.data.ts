@@ -5,19 +5,19 @@ export type ReasonId = "strategies" | "issues" | "rust";
 export const reasons: readonly { id: ReasonId; question: string; answer: string }[] = [
 	{
 		id: "strategies",
-		question: "Postgres testing strategies tend to not scale",
+		question: "I wanted tests that could scale",
 		answer:
-			"Other lightweight approaches tend to slow the suite as operations become slower, or give up on replicating production for speed.",
+			"I wanted to keep tests fast as the suite grew, while preserving isolation and testing against real PostgreSQL.",
 	},
 	{
 		id: "issues",
-		question: "Issues found using IntegreSQL.",
-		answer: "The service became harder to use as the test suite grew. The issues are:",
+		question: "Problems I encountered with IntegreSQL",
+		answer: "As my test suite grew, the service became harder to tune and use. These were the issues:",
 	},
 	{
 		id: "rust",
 		question: "Excuse to use Rust.",
-		answer: "The best way to learn something is building something you will use",
+		answer: "I wanted to learn Rust by building something I would use.",
 	},
 ];
 
@@ -31,7 +31,7 @@ export const strategies: readonly SideListItem[] = [
 
 export const issues: readonly SideListItem[] = [
 	{ text: "It is hard to tune the service to handle a large test suite." },
-	{ text: "Tuning requires changes to our test code." },
+	{ text: "Tuning required changes to my test code." },
 	{ text: "Parallel test suites can be slowed down by database leasing." },
 	{
 		text: "Bug: Non-URL-safe symbols in hashes",

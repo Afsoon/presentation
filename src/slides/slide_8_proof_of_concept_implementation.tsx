@@ -7,7 +7,8 @@ export const SlideProofOfConceptImplementation = () => {
 		<div className="max-w-3xl space-y-5">
 			<Typography level="h2">Proof of concept implementation</Typography>
 			<Typography level="p">
-				This version shares the same idea as IntegreSQL but differs in setup and pool management.
+				For my first version, I kept IntegreSQL’s template idea and tried different approaches to setup, pool
+				management, and cleanup.
 			</Typography>
 		</div>
 	);

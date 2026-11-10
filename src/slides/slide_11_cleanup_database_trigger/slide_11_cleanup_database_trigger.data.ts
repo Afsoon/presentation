@@ -6,6 +6,6 @@ export const integresql = {
 };
 export const pgtest = {
 	title: "PgTest",
-	content: "We can track the number of active connections and trigger cleanup once it reaches zero.",
+	content: "I tried tracking active connections and triggering cleanup when the count reached zero.",
 	problem: "Not all PostgreSQL client pools behave the same way.",
 };

@@ -34,12 +34,13 @@ export const SlideExplicitCleanupDatabaseCommand = () => {
 						) : (
 							<div className="max-w-4xl space-y-8">
 								<Typography level="p">
-									By default, all databases are disposed of 60 seconds after they are leased, or after the lifetime
-									configured by the user.
+									I replaced cleanup on the last disconnection with explicit release and a configurable lease lifetime.
+									The default lifetime is 30 seconds from assignment.
 								</Typography>
 								<Typography level="p">
-									To dispose of a database earlier, the user must explicitly send a SQL command to the PgTest admin
-									panel by connecting to the <Typography level="code">pgtest</Typography> database.
+									I exposed early cleanup as a SQL command in the PgTest admin panel, reached through the{" "}
+									<Typography level="code">pgtest</Typography> database. This kept cleanup within the existing
+									PostgreSQL client.
 								</Typography>
 							</div>
 						)}

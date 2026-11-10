@@ -10,11 +10,11 @@ export const SlideWhatIsPgtest = () => {
 			</div>
 			<div className="max-w-3xl">
 				<Typography level="p">
-					PgTest is a PostgreSQL proxy that manages isolated databases for integration tests.
+					I built PgTest, a PostgreSQL proxy that manages isolated databases for integration tests.
 				</Typography>
 				<Typography level="p">
-					The core idea is to optimize the ability of create database from template in PostgreSQL, allowing to have
-					isolated and fresh database for testing.
+					I used PostgreSQL database templates to give tests fresh, isolated databases, then worked on making those
+					databases available with as little waiting as possible.
 				</Typography>
 			</div>
 			<Typography level="p">

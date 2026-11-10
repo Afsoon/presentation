@@ -37,15 +37,16 @@ export const SlideResults = () => {
 						) : (
 							<div className="space-y-8">
 								<Typography level="p">
-									The current version, v0.2, is 40%–50% faster in CI than IntegreSQL and 20%–30% faster locally.
+									My initial measurements show v0.2 running 40%–50% faster in CI than IntegreSQL and 20%–30% faster
+									locally.
 								</Typography>
 								<Typography level="p">
-									Tuning PgTest requires only an initial pool size, a threshold to trigger prewarming, and an
-									appropriate batch size for pool growth.
+									I ended up with three main pool settings: initial size, a threshold to trigger prewarming, and a batch
+									size for pool growth.
 								</Typography>
 								<Typography level="p">
-									By default, the initial pool size and batch size should match the number of tests running in parallel,
-									with the prewarming threshold set to half that number.
+									The design evolved through early replenishment, explicit cleanup, and a simpler pool lifecycle: from 7
+									states to 4, then 2.
 								</Typography>
 							</div>
 						)}

@@ -1,5 +1,5 @@
 export const description =
-	"The manager had many responsibilities, including I/O. This added two more states to track. Extracting I/O and splitting the work resulted in:";
+	"My manager handled leasing, creation and cleanup triggers, waiting requests, and existing leases. I/O added two more states to track, so I split that work into separate workers:";
 
 export const changes = [
 	"Each worker has its own resource management policy.",

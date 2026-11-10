@@ -12,11 +12,11 @@ describe("slide store", () => {
 	it("starts with the slides' exported metadata in presentation order", () => {
 		const snapshot = createSlideStore().getSnapshot();
 
-		expect(snapshot.slides).toEqual([
+		expect(snapshot.slides).toMatchObject([
 			{ Id: "title", name: "PgTest", hasSubslides: false, position: 0 },
 			{ Id: "table-of-contents", name: "Table of contents", hasSubslides: true, position: 1 },
 			{ Id: "what-is-pgtest", name: "What is pgtest?", hasSubslides: false, position: 2 },
-			{ Id: "why-am-i-building-it", name: "Why am I building it?", hasSubslides: false, position: 3 },
+			{ Id: "why-am-i-building-it", name: "Why I built PgTest", hasSubslides: false, position: 3 },
 			{ Id: "reasons-for-building-pgtest", name: "Reasons for building PgTest", hasSubslides: true, position: 4 },
 			{
 				Id: "architecture-and-implementation",

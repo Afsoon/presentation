@@ -34,13 +34,11 @@ export const SlideNotCappingThePool = () => {
 						) : (
 							<div className="space-y-8">
 								<Typography level="p">
-									Batching and prewarming are the right strategy for handling bursts of lease requests, but capping the
-									pool size makes this strategy ineffective once the pool is full. At that point, we rely on the system
-									to free slots fast enough to avoid waiting for a database.
+									Batching and prewarming helped with bursts of lease requests, but my pool cap stopped replenishment
+									when the pool was full. New requests then depended on cleanup freeing slots, so I removed the cap.
 								</Typography>
 								<Typography level="p">
-									Removing the cap comes with potential problems: if our cleanup policy is not fast enough, memory
-									consumption can grow significantly.
+									That introduced a tradeoff: if cleanup cannot keep up, memory consumption can grow significantly.
 								</Typography>
 							</div>
 						)}

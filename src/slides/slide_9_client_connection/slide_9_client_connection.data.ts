@@ -6,8 +6,8 @@ export const integresql = {
 
 export const pgtest = {
 	title: "PgTest",
-	content: "We move from a REST API to a Postgres proxy in front of our PostgreSQL server.",
-	problem: "We rely on the user to generate unique IDs.",
+	content: "I moved database assignment from a REST API into a proxy in front of PostgreSQL.",
+	problem: "The test code still needs to generate unique lease IDs.",
 };
 
 export const connectionCode = {

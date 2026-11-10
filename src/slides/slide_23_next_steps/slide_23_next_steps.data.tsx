@@ -1,5 +1,5 @@
 export const description =
-	"PgTest is usable today and still needs testing in different projects, but the work is nowhere near complete. Some of the next steps are:";
+	"I have a usable project, and I want to see how it performs across more test suites. Here is what I plan to work on next:";
 export const changes = [
 	{
 		id: "benchmarking",

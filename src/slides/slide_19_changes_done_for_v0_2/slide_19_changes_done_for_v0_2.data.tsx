@@ -1,5 +1,5 @@
 export const description =
-	"This version focused on simplification and laying the foundation for future versions without affecting performance.";
+	"For v0.2, I focused on simplifying the design and making future changes easier without affecting performance.";
 
 export const changes = [
 	{
@@ -15,7 +15,7 @@ export const changes = [
 				>
 					Pingora framework
 				</a>{" "}
-				as the foundation for our proxy.
+				as the foundation for my proxy.
 			</span>
 		),
 	},
