@@ -6,6 +6,9 @@ import { getRouter } from "./router";
 import { getInitialTheme } from "./server/initial-theme";
 import { getInitialPresentationState } from "./stores/slide-search";
 
+// Vitest does not emit CSS assets, so provide the URL expected by the document head.
+vi.mock("./styles.css?url", () => ({ default: "/assets/styles.css" }));
+
 // Test the loader payload without the server-function transport/compiler plugin.
 vi.mock("@/server/initial-presentation", () => ({
 	getInitialPresentation: ({ data }: { data: string }) => Promise.resolve(getInitialPresentationState(data)),
@@ -39,18 +42,18 @@ describe("slide route search", () => {
 		expect(html).toContain("What is PgTest?");
 		expect(html).not.toContain("Why am I building it?");
 		expect(html).not.toContain("<footer");
-		expect(html).not.toContain('aria-label="Slide navigation"');
+		expect(html).toContain('aria-label="Slide navigation"');
 	});
 
 	it.each([
 		{ id: "reasons-for-building-pgtest", content: "Isolating tests with transactions" },
 		{ id: "title", content: "" },
-	])("renders $id without footer controls", async ({ id, content }) => {
+	])("renders $id with slide navigation and no footer", async ({ id, content }) => {
 		const router = await loadRouter(`/?slide=${id}`);
 		const html = renderToString(<RouterProvider router={router} />);
 		expect(html).toContain(content);
 		expect(html).not.toContain("<footer");
-		expect(html).not.toContain('aria-label="Slide navigation"');
+		expect(html).toContain('aria-label="Slide navigation"');
 	});
 
 	it("server-renders the architecture divider with only its title", async () => {

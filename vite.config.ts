@@ -10,6 +10,7 @@ const config = defineConfig(({ mode }) => ({
 		"*": "vp check --fix",
 	},
 	fmt: {
+		ignorePatterns: ["src/routeTree.gen.ts"],
 		printWidth: 120,
 		useTabs: true,
 		sortImports: true,

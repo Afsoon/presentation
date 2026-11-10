@@ -5,16 +5,18 @@ Welcome to your new TanStack Start app!
 To run this application:
 
 ```bash
-pnpm install
-pnpm dev
+vp install --frozen-lockfile
+vp run dev
 ```
+
+The project pins pnpm 12.18.0. Its lockfile contains separate YAML documents for the package manager and application dependencies; older pnpm versions cannot read this format. If Vite+ selects an older system pnpm, run `vp env exec --package-manager pnpm@12.18.0 pnpm install --frozen-lockfile`.
 
 # Building For Production
 
 To build this application for production:
 
 ```bash
-pnpm build
+vp run build
 ```
 
 ## Styling
