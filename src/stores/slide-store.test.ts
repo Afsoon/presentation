@@ -49,7 +49,7 @@ describe("slide store", () => {
 			{ Id: "changes-done-for-v0-2", name: "Changes done for v0.2", hasSubslides: true, position: 18 },
 			{ Id: "conclusion", name: "Conclusion", hasSubslides: false, position: 19 },
 			{ Id: "things-that-didnt-work", name: "Things that didn’t work", hasSubslides: true, position: 20 },
-			{ Id: "results", name: "Results", hasSubslides: false, position: 21 },
+			{ Id: "results", name: "Results", hasSubslides: true, position: 21 },
 			{ Id: "next-steps", name: "Next Steps", hasSubslides: true, position: 22 },
 		]);
 		expect(snapshot.currentSlide).toBe(snapshot.slides[0]);

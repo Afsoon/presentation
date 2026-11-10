@@ -10,8 +10,9 @@ export const v02ChangesMachine = setup({
 	states: {
 		description: { on: { NEXT: "pingoraProxy" } },
 		pingoraProxy: { on: { PREVIOUS: "description", NEXT: "lockFreeTracking" } },
-		lockFreeTracking: { on: { PREVIOUS: "pingoraProxy", NEXT: "batchedMessages" } },
-		batchedMessages: { on: { PREVIOUS: "lockFreeTracking", NEXT: "simplifiedStructures" } },
+		lockFreeTracking: { on: { PREVIOUS: "pingoraProxy", NEXT: "reducedPoolState" } },
+		reducedPoolState: { on: { PREVIOUS: "lockFreeTracking", NEXT: "batchedMessages" } },
+		batchedMessages: { on: { PREVIOUS: "reducedPoolState", NEXT: "simplifiedStructures" } },
 		simplifiedStructures: { on: { PREVIOUS: "batchedMessages" } },
 	},
 });
@@ -19,7 +20,8 @@ const visibleChanges = {
 	description: [],
 	pingoraProxy: changes.slice(0, 1),
 	lockFreeTracking: changes.slice(0, 2),
-	batchedMessages: changes.slice(0, 3),
+	reducedPoolState: changes.slice(0, 3),
+	batchedMessages: changes.slice(0, 4),
 	simplifiedStructures: changes,
 };
 export function selectVisibleChanges(

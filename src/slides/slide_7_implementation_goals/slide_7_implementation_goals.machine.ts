@@ -6,22 +6,15 @@ export const implementationGoalsMachine = setup({
 	types: { events: {} as { type: "NEXT" } | { type: "PREVIOUS" } },
 }).createMachine({
 	id: "implementation-goals",
-	initial: "performance",
+	initial: "transparency",
 	states: {
-		performance: { on: { NEXT: "parallelTestSuites" } },
-		parallelTestSuites: { on: { PREVIOUS: "performance", NEXT: "transparency" } },
-		transparency: { on: { PREVIOUS: "parallelTestSuites", NEXT: "tuning" } },
-		tuning: { on: { PREVIOUS: "transparency" } },
+		transparency: { on: { NEXT: "poolStrategy" } },
+		poolStrategy: { on: { PREVIOUS: "transparency", NEXT: "tuning" } },
+		tuning: { on: { PREVIOUS: "poolStrategy", NEXT: "performance" } },
+		performance: { on: { PREVIOUS: "tuning" } },
 	},
 });
 
-const visibleGoals = {
-	performance: goals.slice(0, 1),
-	parallelTestSuites: goals.slice(0, 2),
-	transparency: goals.slice(0, 3),
-	tuning: goals,
-};
-
-export function selectVisibleGoals(snapshot: SnapshotFrom<typeof implementationGoalsMachine>) {
-	return visibleGoals[snapshot.value];
+export function selectImplementationGoal(snapshot: SnapshotFrom<typeof implementationGoalsMachine>) {
+	return goals[snapshot.value];
 }

@@ -1,16 +1,8 @@
-export type ImplementationGoal = {
-	id: string;
-	requirement: string;
-	solution: string;
-};
+export const goals = {
+	transparency: { title: "Transparent for the user", description: "Working as a Postgres proxy.", index: 0 },
+	poolStrategy: { title: "New database pool strategy", description: "A strategy to reduce wait time.", index: 1 },
+	tuning: { title: "Easy to tune", description: "Few variables to tweak for maximum performance.", index: 2 },
+	performance: { title: "Performant", description: "Be able to handle multiple requests at once.", index: 3 },
+} as const;
 
-export const goals: readonly ImplementationGoal[] = [
-	{ id: "performance", requirement: "Prioritize performance", solution: "Rust" },
-	{
-		id: "parallelTestSuites",
-		requirement: "Handle parallel test suites and bursts of requests",
-		solution: "New database pool strategy",
-	},
-	{ id: "transparency", requirement: "Be transparent to the user", solution: "Postgres proxy" },
-	{ id: "tuning", requirement: "Be easy to tune", solution: "Reduce time-based operations" },
-];
+export type ImplementationGoalStage = keyof typeof goals;

@@ -13,9 +13,11 @@ import type { explicitCleanupMachine } from "@/slides/slide_16_explicit_cleanup_
 import type { v01ResultsMachine } from "@/slides/slide_17_v0_1_results/slide_17_v0_1_results.machine";
 import type { v02ChangesMachine } from "@/slides/slide_19_changes_done_for_v0_2/slide_19_changes_done_for_v0_2.machine";
 import type { thingsThatDidntWorkMachine } from "@/slides/slide_21_things_that_didnt_work/slide_21_things_that_didnt_work.machine";
+import type { resultsMachine } from "@/slides/slide_22_results/slide_22_results.machine";
 import type { nextStepsMachine } from "@/slides/slide_23_next_steps/slide_23_next_steps.machine";
 
 type SlideActor =
+	| ActorRefFrom<typeof resultsMachine>
 	| ActorRefFrom<typeof explicitCleanupMachine>
 	| ActorRefFrom<typeof uncappedPoolMachine>
 	| ActorRefFrom<typeof nextStepsMachine>
