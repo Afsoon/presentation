@@ -1,11 +1,6 @@
 import Typography from "@/components/ui/typography";
-import type { SlideMetadata } from "@/slides/types";
 
-export const metadata = {
-	Id: "v0-2-implementation",
-	name: "v0.2 implementation",
-	hasSubslides: false,
-} satisfies SlideMetadata;
+export { v02ImplementationMetadata as metadata } from "@/slides/metadata";
 
 export const SlideV02Implementation = () => {
 	return (

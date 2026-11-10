@@ -1,7 +1,7 @@
 import { useActorRef, useSelector } from "@xstate/react";
 import { useEffect } from "react";
 
-import type { SlideMetadata } from "@/slides/types";
+import { tableOfContentsMetadata as metadata } from "@/slides/metadata";
 import { subslideControlsStore } from "@/stores/subslide-controls";
 
 import {
@@ -10,11 +10,7 @@ import {
 } from "./slide_2_table_of_content/slide_2_table_of_content.machine";
 import { TableOfContentsList } from "./slide_2_table_of_content/table-of-contents-list";
 
-export const metadata = {
-	Id: "table-of-contents",
-	name: "Table of contents",
-	hasSubslides: true,
-} satisfies SlideMetadata;
+export { tableOfContentsMetadata as metadata } from "@/slides/metadata";
 
 export const SlideTableOfContent = () => {
 	const actor = useActorRef(tableOfContentsMachine, { id: metadata.Id });

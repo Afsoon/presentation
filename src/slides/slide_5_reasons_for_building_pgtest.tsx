@@ -6,7 +6,7 @@ import { useRef } from "react";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { Separator } from "@/components/ui/separator";
 import { cn } from "@/lib/utils";
-import type { SlideMetadata } from "@/slides/types";
+import { reasonsForBuildingPgtestMetadata as metadata } from "@/slides/metadata";
 import { subslideControlsStore } from "@/stores/subslide-controls";
 
 import { ReasonsSideList } from "./slide_5_reasons_for_building_pgtest/reasons-side-list";
@@ -16,11 +16,7 @@ import {
 	reasonsMachine,
 } from "./slide_5_reasons_for_building_pgtest/slide_5_reasons_for_building_pgtest.machine";
 
-export const metadata = {
-	Id: "reasons-for-building-pgtest",
-	name: "Reasons for building PgTest",
-	hasSubslides: true,
-} satisfies SlideMetadata;
+export { reasonsForBuildingPgtestMetadata as metadata } from "@/slides/metadata";
 
 export const SlideReasonsForBuildingPgtest = () => {
 	const actor = useActorRef(reasonsMachine, { id: metadata.Id });

@@ -1,11 +1,6 @@
 import Typography from "@/components/ui/typography";
-import type { SlideMetadata } from "@/slides/types";
 
-export const metadata = {
-	Id: "what-is-pgtest",
-	name: "What is pgtest?",
-	hasSubslides: false,
-} satisfies SlideMetadata;
+export { whatIsPgtestMetadata as metadata } from "@/slides/metadata";
 
 export const SlideWhatIsPgtest = () => {
 	return (

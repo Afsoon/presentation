@@ -3,17 +3,13 @@ import { motion, useReducedMotion } from "motion/react";
 import { useEffect } from "react";
 
 import Typography from "@/components/ui/typography";
-import type { SlideMetadata } from "@/slides/types";
+import { next_stepsMetadata as metadata } from "@/slides/metadata";
 import { subslideControlsStore } from "@/stores/subslide-controls";
 
 import { changes, description } from "./slide_23_next_steps/slide_23_next_steps.data";
 import { nextStepsMachine, selectVisibleChanges } from "./slide_23_next_steps/slide_23_next_steps.machine";
 
-export const metadata = {
-	Id: "next-steps",
-	name: "Next Steps",
-	hasSubslides: true,
-} satisfies SlideMetadata;
+export { next_stepsMetadata as metadata } from "@/slides/metadata";
 
 export const SlideNextSteps = () => {
 	const actor = useActorRef(nextStepsMachine, { id: metadata.Id });

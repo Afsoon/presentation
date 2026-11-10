@@ -4,17 +4,13 @@ import { useEffect } from "react";
 
 import { CodeComparison } from "@/components/ui/code-comparison";
 import Typography from "@/components/ui/typography";
-import type { SlideMetadata } from "@/slides/types";
+import { clientConnectionMetadata as metadata } from "@/slides/metadata";
 import { subslideControlsStore } from "@/stores/subslide-controls";
 
 import { connectionCode, integresql, pgtest } from "./slide_9_client_connection/slide_9_client_connection.data";
 import { clientConnectionMachine } from "./slide_9_client_connection/slide_9_client_connection.machine";
 
-export const metadata = {
-	Id: "client-connection",
-	name: "Client connection",
-	hasSubslides: true,
-} satisfies SlideMetadata;
+export { clientConnectionMetadata as metadata } from "@/slides/metadata";
 
 export const SlideClientConnection = () => {
 	const actor = useActorRef(clientConnectionMachine, { id: metadata.Id });

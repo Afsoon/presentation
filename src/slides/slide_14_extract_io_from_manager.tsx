@@ -3,7 +3,7 @@ import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import { useEffect } from "react";
 
 import Typography from "@/components/ui/typography";
-import type { SlideMetadata } from "@/slides/types";
+import { extractIoMetadata as metadata } from "@/slides/metadata";
 import { subslideControlsStore } from "@/stores/subslide-controls";
 
 import { changes, description } from "./slide_14_extract_io_from_manager/slide_14_extract_io_from_manager.data";
@@ -13,11 +13,7 @@ import {
 } from "./slide_14_extract_io_from_manager/slide_14_extract_io_from_manager.machine";
 import { WorkerDiagram } from "./slide_14_extract_io_from_manager/worker-diagram";
 
-export const metadata = {
-	Id: "extract-io-from-manager",
-	name: "Extract IO from manager and split it",
-	hasSubslides: true,
-} satisfies SlideMetadata;
+export { extractIoMetadata as metadata } from "@/slides/metadata";
 
 export const SlideExtractIoFromManager = () => {
 	const actor = useActorRef(extractIoMachine, { id: metadata.Id });

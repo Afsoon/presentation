@@ -1,26 +1,28 @@
-import { metadata as titleMetadata } from "@/slides/slide_1_title";
-import { metadata as tableOfContentsMetadata } from "@/slides/slide_2_table_of_content";
-import { metadata as whatIsPgtestMetadata } from "@/slides/slide_3_what_is_pgtest";
-import { metadata as whyAmIBuildingItMetadata } from "@/slides/slide_4_why_am_i_building_it";
-import { metadata as reasonsForBuildingPgtestMetadata } from "@/slides/slide_5_reasons_for_building_pgtest";
-import { metadata as architectureMetadata } from "@/slides/slide_6_architecture_and_implementation";
-import { metadata as implementationGoalsMetadata } from "@/slides/slide_7_implementation_goals";
-import { metadata as proofOfConceptMetadata } from "@/slides/slide_8_proof_of_concept_implementation";
-import { metadata as clientConnectionMetadata } from "@/slides/slide_9_client_connection";
-import { metadata as databasePoolMetadata } from "@/slides/slide_10_database_pool_strategy";
-import { metadata as cleanupMetadata } from "@/slides/slide_11_cleanup_database_trigger";
-import { metadata as pocResultsMetadata } from "@/slides/slide_12_poc_results";
-import { metadata as v01ImplementationMetadata } from "@/slides/slide_13_v0_1_implementation";
-import { metadata as extractIoMetadata } from "@/slides/slide_14_extract_io_from_manager";
-import { metadata as uncappedPoolMetadata } from "@/slides/slide_15_not_capping_the_pool";
-import { metadata as explicitCleanupMetadata } from "@/slides/slide_16_explicit_cleanup_database_command";
-import { metadata as v01ResultsMetadata } from "@/slides/slide_17_v0_1_results";
-import { metadata as v02ImplementationMetadata } from "@/slides/slide_18_v0_2_implementation";
-import { metadata as v02ChangesMetadata } from "@/slides/slide_19_changes_done_for_v0_2";
-import { metadata as conclusionMetadata } from "@/slides/slide_20_conclusion";
-import { metadata as things_that_didnt_workMetadata } from "@/slides/slide_21_things_that_didnt_work";
-import { metadata as resultsMetadata } from "@/slides/slide_22_results";
-import { metadata as next_stepsMetadata } from "@/slides/slide_23_next_steps";
+import {
+	titleMetadata,
+	tableOfContentsMetadata,
+	whatIsPgtestMetadata,
+	whyAmIBuildingItMetadata,
+	reasonsForBuildingPgtestMetadata,
+	architectureMetadata,
+	implementationGoalsMetadata,
+	proofOfConceptMetadata,
+	clientConnectionMetadata,
+	databasePoolMetadata,
+	cleanupMetadata,
+	pocResultsMetadata,
+	v01ImplementationMetadata,
+	extractIoMetadata,
+	uncappedPoolMetadata,
+	explicitCleanupMetadata,
+	v01ResultsMetadata,
+	v02ImplementationMetadata,
+	v02ChangesMetadata,
+	conclusionMetadata,
+	things_that_didnt_workMetadata,
+	resultsMetadata,
+	next_stepsMetadata,
+} from "@/slides/metadata";
 import type { SlideMetadata } from "@/slides/types";
 
 export type SlideDirection = "left" | "right";

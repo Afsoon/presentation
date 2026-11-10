@@ -3,7 +3,7 @@ import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import { useEffect } from "react";
 
 import Typography from "@/components/ui/typography";
-import type { SlideMetadata } from "@/slides/types";
+import { implementationGoalsMetadata as metadata } from "@/slides/metadata";
 import { subslideControlsStore } from "@/stores/subslide-controls";
 
 import { ImplementationGoalsDiagram } from "./slide_7_implementation_goals/implementation-goals-diagram";
@@ -12,11 +12,7 @@ import {
 	selectImplementationGoal,
 } from "./slide_7_implementation_goals/slide_7_implementation_goals.machine";
 
-export const metadata = {
-	Id: "implementation-goals",
-	name: "Implementation goals",
-	hasSubslides: true,
-} satisfies SlideMetadata;
+export { implementationGoalsMetadata as metadata } from "@/slides/metadata";
 
 export const SlideImplementationGoals = () => {
 	const actor = useActorRef(implementationGoalsMachine, { id: metadata.Id });

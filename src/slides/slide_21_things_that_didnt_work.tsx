@@ -3,7 +3,7 @@ import { motion, useReducedMotion } from "motion/react";
 import { useEffect } from "react";
 
 import Typography from "@/components/ui/typography";
-import type { SlideMetadata } from "@/slides/types";
+import { things_that_didnt_workMetadata as metadata } from "@/slides/metadata";
 import { subslideControlsStore } from "@/stores/subslide-controls";
 
 import { changes, description } from "./slide_21_things_that_didnt_work/slide_21_things_that_didnt_work.data";
@@ -12,11 +12,7 @@ import {
 	selectVisibleChanges,
 } from "./slide_21_things_that_didnt_work/slide_21_things_that_didnt_work.machine";
 
-export const metadata = {
-	Id: "things-that-didnt-work",
-	name: "Things that didn’t work",
-	hasSubslides: true,
-} satisfies SlideMetadata;
+export { things_that_didnt_workMetadata as metadata } from "@/slides/metadata";
 
 export const SlideThingsThatDidntWork = () => {
 	const actor = useActorRef(thingsThatDidntWorkMachine, { id: metadata.Id });

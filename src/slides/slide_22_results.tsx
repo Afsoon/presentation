@@ -3,13 +3,14 @@ import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import { useEffect } from "react";
 
 import Typography from "@/components/ui/typography";
+import { resultsMetadata as metadata } from "@/slides/metadata";
 import { ImplementationGoalsDiagram } from "@/slides/slide_7_implementation_goals/implementation-goals-diagram";
-import type { SlideMetadata } from "@/slides/types";
 import { subslideControlsStore } from "@/stores/subslide-controls";
 
 import { resultsMachine } from "./slide_22_results/slide_22_results.machine";
 
-export const metadata = { Id: "results", name: "Results", hasSubslides: true } satisfies SlideMetadata;
+export { resultsMetadata as metadata } from "@/slides/metadata";
+
 export const SlideResults = () => {
 	const actor = useActorRef(resultsMachine, { id: metadata.Id });
 	useEffect(() => subslideControlsStore.registerActor(actor), [actor]);

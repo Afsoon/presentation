@@ -3,17 +3,13 @@ import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import { useEffect } from "react";
 
 import Typography from "@/components/ui/typography";
-import type { SlideMetadata } from "@/slides/types";
+import { explicitCleanupMetadata as metadata } from "@/slides/metadata";
 import { subslideControlsStore } from "@/stores/subslide-controls";
 
 import { CleanupRoutingDiagram } from "./slide_16_explicit_cleanup_database_command/cleanup-routing-diagram";
 import { explicitCleanupMachine } from "./slide_16_explicit_cleanup_database_command/slide_16_explicit_cleanup_database_command.machine";
 
-export const metadata = {
-	Id: "explicit-cleanup-database-command",
-	name: "Explicit cleanup database command",
-	hasSubslides: true,
-} satisfies SlideMetadata;
+export { explicitCleanupMetadata as metadata } from "@/slides/metadata";
 
 export const SlideExplicitCleanupDatabaseCommand = () => {
 	const actor = useActorRef(explicitCleanupMachine, { id: metadata.Id });

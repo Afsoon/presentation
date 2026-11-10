@@ -1,52 +1,115 @@
 import { createFileRoute, getRouteApi } from "@tanstack/react-router";
-import { Activity, useDeferredValue, ViewTransition } from "react";
+import { Activity, lazy, Suspense, useDeferredValue, ViewTransition } from "react";
 
 import { KeyboardNavigation } from "@/components/keyboard_navigation";
 import { AnimatedThemeToggler } from "@/components/ui/animated-theme-toggler";
 import { GridPattern } from "@/components/ui/grid-pattern";
+import LiquidWaveSpinner from "@/components/ui/spinner";
 import { getInitialPresentation } from "@/server/initial-presentation";
-import { SlideTitle, metadata as titleMetadata } from "@/slides/slide_1_title";
-import { SlideTableOfContent, metadata as tableOfContentsMetadata } from "@/slides/slide_2_table_of_content";
-import { SlideWhatIsPgtest, metadata as whatIsPgtestMetadata } from "@/slides/slide_3_what_is_pgtest";
-import { SlideWhyAmIBuildingIt, metadata as whyAmIBuildingItMetadata } from "@/slides/slide_4_why_am_i_building_it";
 import {
-	SlideReasonsForBuildingPgtest,
-	metadata as reasonsForBuildingPgtestMetadata,
-} from "@/slides/slide_5_reasons_for_building_pgtest";
-import {
-	SlideArchitectureAndImplementation,
-	metadata as architectureMetadata,
-} from "@/slides/slide_6_architecture_and_implementation";
-import {
-	SlideImplementationGoals,
-	metadata as implementationGoalsMetadata,
-} from "@/slides/slide_7_implementation_goals";
-import {
-	SlideProofOfConceptImplementation,
-	metadata as proofOfConceptMetadata,
-} from "@/slides/slide_8_proof_of_concept_implementation";
-import { SlideClientConnection, metadata as clientConnectionMetadata } from "@/slides/slide_9_client_connection";
-import { SlideDatabasePoolStrategy, metadata as databasePoolMetadata } from "@/slides/slide_10_database_pool_strategy";
-import { SlideCleanupDatabaseTrigger, metadata as cleanupMetadata } from "@/slides/slide_11_cleanup_database_trigger";
-import { SlidePocResults, metadata as pocResultsMetadata } from "@/slides/slide_12_poc_results";
-import { SlideV01Implementation, metadata as v01ImplementationMetadata } from "@/slides/slide_13_v0_1_implementation";
-import { SlideExtractIoFromManager, metadata as extractIoMetadata } from "@/slides/slide_14_extract_io_from_manager";
-import { SlideNotCappingThePool, metadata as uncappedPoolMetadata } from "@/slides/slide_15_not_capping_the_pool";
-import {
-	SlideExplicitCleanupDatabaseCommand,
-	metadata as explicitCleanupMetadata,
-} from "@/slides/slide_16_explicit_cleanup_database_command";
-import { SlideV01Results, metadata as v01ResultsMetadata } from "@/slides/slide_17_v0_1_results";
-import { SlideV02Implementation, metadata as v02ImplementationMetadata } from "@/slides/slide_18_v0_2_implementation";
-import { SlideChangesDoneForV02, metadata as v02ChangesMetadata } from "@/slides/slide_19_changes_done_for_v0_2";
-import { SlideConclusion, metadata as conclusionMetadata } from "@/slides/slide_20_conclusion";
-import {
-	SlideThingsThatDidntWork,
-	metadata as things_that_didnt_workMetadata,
-} from "@/slides/slide_21_things_that_didnt_work";
-import { SlideResults, metadata as resultsMetadata } from "@/slides/slide_22_results";
-import { SlideNextSteps, metadata as next_stepsMetadata } from "@/slides/slide_23_next_steps";
+	titleMetadata,
+	tableOfContentsMetadata,
+	whatIsPgtestMetadata,
+	whyAmIBuildingItMetadata,
+	reasonsForBuildingPgtestMetadata,
+	architectureMetadata,
+	implementationGoalsMetadata,
+	proofOfConceptMetadata,
+	clientConnectionMetadata,
+	databasePoolMetadata,
+	cleanupMetadata,
+	pocResultsMetadata,
+	v01ImplementationMetadata,
+	extractIoMetadata,
+	uncappedPoolMetadata,
+	explicitCleanupMetadata,
+	v01ResultsMetadata,
+	v02ImplementationMetadata,
+	v02ChangesMetadata,
+	conclusionMetadata,
+	things_that_didnt_workMetadata,
+	resultsMetadata,
+	next_stepsMetadata,
+} from "@/slides/metadata";
 import { useSlides } from "@/stores/use-slides";
+
+const SlideTitle = lazy(() => import("@/slides/slide_1_title").then((module) => ({ default: module.SlideTitle })));
+const SlideTableOfContent = lazy(() =>
+	import("@/slides/slide_2_table_of_content").then((module) => ({ default: module.SlideTableOfContent })),
+);
+const SlideWhatIsPgtest = lazy(() =>
+	import("@/slides/slide_3_what_is_pgtest").then((module) => ({ default: module.SlideWhatIsPgtest })),
+);
+const SlideWhyAmIBuildingIt = lazy(() =>
+	import("@/slides/slide_4_why_am_i_building_it").then((module) => ({ default: module.SlideWhyAmIBuildingIt })),
+);
+const SlideReasonsForBuildingPgtest = lazy(() =>
+	import("@/slides/slide_5_reasons_for_building_pgtest").then((module) => ({
+		default: module.SlideReasonsForBuildingPgtest,
+	})),
+);
+const SlideArchitectureAndImplementation = lazy(() =>
+	import("@/slides/slide_6_architecture_and_implementation").then((module) => ({
+		default: module.SlideArchitectureAndImplementation,
+	})),
+);
+const SlideImplementationGoals = lazy(() =>
+	import("@/slides/slide_7_implementation_goals").then((module) => ({ default: module.SlideImplementationGoals })),
+);
+const SlideProofOfConceptImplementation = lazy(() =>
+	import("@/slides/slide_8_proof_of_concept_implementation").then((module) => ({
+		default: module.SlideProofOfConceptImplementation,
+	})),
+);
+const SlideClientConnection = lazy(() =>
+	import("@/slides/slide_9_client_connection").then((module) => ({ default: module.SlideClientConnection })),
+);
+const SlideDatabasePoolStrategy = lazy(() =>
+	import("@/slides/slide_10_database_pool_strategy").then((module) => ({ default: module.SlideDatabasePoolStrategy })),
+);
+const SlideCleanupDatabaseTrigger = lazy(() =>
+	import("@/slides/slide_11_cleanup_database_trigger").then((module) => ({
+		default: module.SlideCleanupDatabaseTrigger,
+	})),
+);
+const SlidePocResults = lazy(() =>
+	import("@/slides/slide_12_poc_results").then((module) => ({ default: module.SlidePocResults })),
+);
+const SlideV01Implementation = lazy(() =>
+	import("@/slides/slide_13_v0_1_implementation").then((module) => ({ default: module.SlideV01Implementation })),
+);
+const SlideExtractIoFromManager = lazy(() =>
+	import("@/slides/slide_14_extract_io_from_manager").then((module) => ({ default: module.SlideExtractIoFromManager })),
+);
+const SlideNotCappingThePool = lazy(() =>
+	import("@/slides/slide_15_not_capping_the_pool").then((module) => ({ default: module.SlideNotCappingThePool })),
+);
+const SlideExplicitCleanupDatabaseCommand = lazy(() =>
+	import("@/slides/slide_16_explicit_cleanup_database_command").then((module) => ({
+		default: module.SlideExplicitCleanupDatabaseCommand,
+	})),
+);
+const SlideV01Results = lazy(() =>
+	import("@/slides/slide_17_v0_1_results").then((module) => ({ default: module.SlideV01Results })),
+);
+const SlideV02Implementation = lazy(() =>
+	import("@/slides/slide_18_v0_2_implementation").then((module) => ({ default: module.SlideV02Implementation })),
+);
+const SlideChangesDoneForV02 = lazy(() =>
+	import("@/slides/slide_19_changes_done_for_v0_2").then((module) => ({ default: module.SlideChangesDoneForV02 })),
+);
+const SlideConclusion = lazy(() =>
+	import("@/slides/slide_20_conclusion").then((module) => ({ default: module.SlideConclusion })),
+);
+const SlideThingsThatDidntWork = lazy(() =>
+	import("@/slides/slide_21_things_that_didnt_work").then((module) => ({ default: module.SlideThingsThatDidntWork })),
+);
+const SlideResults = lazy(() =>
+	import("@/slides/slide_22_results").then((module) => ({ default: module.SlideResults })),
+);
+const SlideNextSteps = lazy(() =>
+	import("@/slides/slide_23_next_steps").then((module) => ({ default: module.SlideNextSteps })),
+);
 
 export const Route = createFileRoute("/")({
 	loader: ({ location }) => getInitialPresentation({ data: location.searchStr }),
@@ -98,7 +161,9 @@ function Home() {
 						exit={{ default: "slide-in", forward: "slide-in", backward: "slide-back" }}
 					>
 						<div className="mx-auto flex min-h-full w-full max-w-6xl flex-col justify-center">
-							<SlideTitle />
+							<Suspense fallback={<LiquidWaveSpinner role="status" aria-label="Loading slide" />}>
+								<SlideTitle />
+							</Suspense>
 						</div>
 					</ViewTransition>
 				</Activity>
@@ -109,7 +174,9 @@ function Home() {
 						exit={{ default: "slide-in", forward: "slide-in", backward: "slide-back" }}
 					>
 						<div className="mx-auto flex min-h-full w-full max-w-6xl flex-col justify-center">
-							<SlideTableOfContent />
+							<Suspense fallback={<LiquidWaveSpinner role="status" aria-label="Loading slide" />}>
+								<SlideTableOfContent />
+							</Suspense>
 						</div>
 					</ViewTransition>
 				</Activity>
@@ -120,7 +187,9 @@ function Home() {
 						exit={{ default: "slide-in", forward: "slide-in", backward: "slide-back" }}
 					>
 						<div className="mx-auto flex min-h-full w-full max-w-6xl flex-col justify-center">
-							<SlideWhatIsPgtest />
+							<Suspense fallback={<LiquidWaveSpinner role="status" aria-label="Loading slide" />}>
+								<SlideWhatIsPgtest />
+							</Suspense>
 						</div>
 					</ViewTransition>
 				</Activity>
@@ -131,7 +200,9 @@ function Home() {
 						exit={{ default: "slide-in", forward: "slide-in", backward: "slide-back" }}
 					>
 						<div className="mx-auto flex min-h-full w-full max-w-6xl flex-col justify-center">
-							<SlideWhyAmIBuildingIt />
+							<Suspense fallback={<LiquidWaveSpinner role="status" aria-label="Loading slide" />}>
+								<SlideWhyAmIBuildingIt />
+							</Suspense>
 						</div>
 					</ViewTransition>
 				</Activity>
@@ -142,7 +213,9 @@ function Home() {
 						exit={{ default: "slide-in", forward: "slide-in", backward: "slide-back" }}
 					>
 						<div className="mx-auto flex min-h-full w-full max-w-6xl flex-col justify-center">
-							<SlideReasonsForBuildingPgtest />
+							<Suspense fallback={<LiquidWaveSpinner role="status" aria-label="Loading slide" />}>
+								<SlideReasonsForBuildingPgtest />
+							</Suspense>
 						</div>
 					</ViewTransition>
 				</Activity>
@@ -153,7 +226,9 @@ function Home() {
 						exit={{ default: "slide-in", forward: "slide-in", backward: "slide-back" }}
 					>
 						<div className="mx-auto flex min-h-full w-full max-w-6xl flex-col justify-center">
-							<SlideArchitectureAndImplementation />
+							<Suspense fallback={<LiquidWaveSpinner role="status" aria-label="Loading slide" />}>
+								<SlideArchitectureAndImplementation />
+							</Suspense>
 						</div>
 					</ViewTransition>
 				</Activity>
@@ -164,7 +239,9 @@ function Home() {
 						exit={{ default: "slide-in", forward: "slide-in", backward: "slide-back" }}
 					>
 						<div className="mx-auto flex min-h-full w-full max-w-6xl flex-col justify-center">
-							<SlideImplementationGoals />
+							<Suspense fallback={<LiquidWaveSpinner role="status" aria-label="Loading slide" />}>
+								<SlideImplementationGoals />
+							</Suspense>
 						</div>
 					</ViewTransition>
 				</Activity>
@@ -175,7 +252,9 @@ function Home() {
 						exit={{ default: "slide-in", forward: "slide-in", backward: "slide-back" }}
 					>
 						<div className="mx-auto flex min-h-full w-full max-w-6xl flex-col justify-center">
-							<SlideProofOfConceptImplementation />
+							<Suspense fallback={<LiquidWaveSpinner role="status" aria-label="Loading slide" />}>
+								<SlideProofOfConceptImplementation />
+							</Suspense>
 						</div>
 					</ViewTransition>
 				</Activity>
@@ -186,7 +265,9 @@ function Home() {
 						exit={{ default: "slide-in", forward: "slide-in", backward: "slide-back" }}
 					>
 						<div className="mx-auto flex min-h-full w-full max-w-6xl flex-col justify-center">
-							<SlideClientConnection />
+							<Suspense fallback={<LiquidWaveSpinner role="status" aria-label="Loading slide" />}>
+								<SlideClientConnection />
+							</Suspense>
 						</div>
 					</ViewTransition>
 				</Activity>
@@ -197,7 +278,9 @@ function Home() {
 						exit={{ default: "slide-in", forward: "slide-in", backward: "slide-back" }}
 					>
 						<div className="mx-auto flex min-h-full w-full max-w-6xl flex-col justify-center">
-							<SlideDatabasePoolStrategy />
+							<Suspense fallback={<LiquidWaveSpinner role="status" aria-label="Loading slide" />}>
+								<SlideDatabasePoolStrategy />
+							</Suspense>
 						</div>
 					</ViewTransition>
 				</Activity>
@@ -208,7 +291,9 @@ function Home() {
 						exit={{ default: "slide-in", forward: "slide-in", backward: "slide-back" }}
 					>
 						<div className="mx-auto flex min-h-full w-full max-w-6xl flex-col justify-center">
-							<SlideCleanupDatabaseTrigger />
+							<Suspense fallback={<LiquidWaveSpinner role="status" aria-label="Loading slide" />}>
+								<SlideCleanupDatabaseTrigger />
+							</Suspense>
 						</div>
 					</ViewTransition>
 				</Activity>
@@ -219,7 +304,9 @@ function Home() {
 						exit={{ default: "slide-in", forward: "slide-in", backward: "slide-back" }}
 					>
 						<div className="mx-auto flex min-h-full w-full max-w-6xl flex-col justify-center">
-							<SlidePocResults />
+							<Suspense fallback={<LiquidWaveSpinner role="status" aria-label="Loading slide" />}>
+								<SlidePocResults />
+							</Suspense>
 						</div>
 					</ViewTransition>
 				</Activity>
@@ -230,7 +317,9 @@ function Home() {
 						exit={{ default: "slide-in", forward: "slide-in", backward: "slide-back" }}
 					>
 						<div className="mx-auto flex min-h-full w-full max-w-6xl flex-col justify-center">
-							<SlideV01Implementation />
+							<Suspense fallback={<LiquidWaveSpinner role="status" aria-label="Loading slide" />}>
+								<SlideV01Implementation />
+							</Suspense>
 						</div>
 					</ViewTransition>
 				</Activity>
@@ -241,7 +330,9 @@ function Home() {
 						exit={{ default: "slide-in", forward: "slide-in", backward: "slide-back" }}
 					>
 						<div className="mx-auto flex min-h-full w-full max-w-6xl flex-col justify-center">
-							<SlideExtractIoFromManager />
+							<Suspense fallback={<LiquidWaveSpinner role="status" aria-label="Loading slide" />}>
+								<SlideExtractIoFromManager />
+							</Suspense>
 						</div>
 					</ViewTransition>
 				</Activity>
@@ -252,7 +343,9 @@ function Home() {
 						exit={{ default: "slide-in", forward: "slide-in", backward: "slide-back" }}
 					>
 						<div className="mx-auto flex min-h-full w-full max-w-6xl flex-col justify-center">
-							<SlideNotCappingThePool />
+							<Suspense fallback={<LiquidWaveSpinner role="status" aria-label="Loading slide" />}>
+								<SlideNotCappingThePool />
+							</Suspense>
 						</div>
 					</ViewTransition>
 				</Activity>
@@ -263,7 +356,9 @@ function Home() {
 						exit={{ default: "slide-in", forward: "slide-in", backward: "slide-back" }}
 					>
 						<div className="mx-auto flex min-h-full w-full max-w-6xl flex-col justify-center">
-							<SlideExplicitCleanupDatabaseCommand />
+							<Suspense fallback={<LiquidWaveSpinner role="status" aria-label="Loading slide" />}>
+								<SlideExplicitCleanupDatabaseCommand />
+							</Suspense>
 						</div>
 					</ViewTransition>
 				</Activity>
@@ -274,7 +369,9 @@ function Home() {
 						exit={{ default: "slide-in", forward: "slide-in", backward: "slide-back" }}
 					>
 						<div className="mx-auto flex min-h-full w-full max-w-6xl flex-col justify-center">
-							<SlideV01Results />
+							<Suspense fallback={<LiquidWaveSpinner role="status" aria-label="Loading slide" />}>
+								<SlideV01Results />
+							</Suspense>
 						</div>
 					</ViewTransition>
 				</Activity>
@@ -285,7 +382,9 @@ function Home() {
 						exit={{ default: "slide-in", forward: "slide-in", backward: "slide-back" }}
 					>
 						<div className="mx-auto flex min-h-full w-full max-w-6xl flex-col justify-center">
-							<SlideV02Implementation />
+							<Suspense fallback={<LiquidWaveSpinner role="status" aria-label="Loading slide" />}>
+								<SlideV02Implementation />
+							</Suspense>
 						</div>
 					</ViewTransition>
 				</Activity>
@@ -296,7 +395,9 @@ function Home() {
 						exit={{ default: "slide-in", forward: "slide-in", backward: "slide-back" }}
 					>
 						<div className="mx-auto flex min-h-full w-full max-w-6xl flex-col justify-center">
-							<SlideChangesDoneForV02 />
+							<Suspense fallback={<LiquidWaveSpinner role="status" aria-label="Loading slide" />}>
+								<SlideChangesDoneForV02 />
+							</Suspense>
 						</div>
 					</ViewTransition>
 				</Activity>
@@ -307,7 +408,9 @@ function Home() {
 						exit={{ default: "slide-in", forward: "slide-in", backward: "slide-back" }}
 					>
 						<div className="mx-auto flex min-h-full w-full max-w-6xl flex-col justify-center">
-							<SlideConclusion />
+							<Suspense fallback={<LiquidWaveSpinner role="status" aria-label="Loading slide" />}>
+								<SlideConclusion />
+							</Suspense>
 						</div>
 					</ViewTransition>
 				</Activity>
@@ -318,7 +421,9 @@ function Home() {
 						exit={{ default: "slide-in", forward: "slide-in", backward: "slide-back" }}
 					>
 						<div className="mx-auto flex min-h-full w-full max-w-6xl flex-col justify-center">
-							<SlideThingsThatDidntWork />
+							<Suspense fallback={<LiquidWaveSpinner role="status" aria-label="Loading slide" />}>
+								<SlideThingsThatDidntWork />
+							</Suspense>
 						</div>
 					</ViewTransition>
 				</Activity>
@@ -329,7 +434,9 @@ function Home() {
 						exit={{ default: "slide-in", forward: "slide-in", backward: "slide-back" }}
 					>
 						<div className="mx-auto flex min-h-full w-full max-w-6xl flex-col justify-center">
-							<SlideResults />
+							<Suspense fallback={<LiquidWaveSpinner role="status" aria-label="Loading slide" />}>
+								<SlideResults />
+							</Suspense>
 						</div>
 					</ViewTransition>
 				</Activity>
@@ -340,7 +447,9 @@ function Home() {
 						exit={{ default: "slide-in", forward: "slide-in", backward: "slide-back" }}
 					>
 						<div className="mx-auto flex min-h-full w-full max-w-6xl flex-col justify-center">
-							<SlideNextSteps />
+							<Suspense fallback={<LiquidWaveSpinner role="status" aria-label="Loading slide" />}>
+								<SlideNextSteps />
+							</Suspense>
 						</div>
 					</ViewTransition>
 				</Activity>

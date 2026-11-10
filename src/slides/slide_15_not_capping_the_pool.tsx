@@ -3,17 +3,13 @@ import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import { useEffect } from "react";
 
 import Typography from "@/components/ui/typography";
-import type { SlideMetadata } from "@/slides/types";
+import { uncappedPoolMetadata as metadata } from "@/slides/metadata";
 import { subslideControlsStore } from "@/stores/subslide-controls";
 
 import { uncappedPoolMachine } from "./slide_15_not_capping_the_pool/slide_15_not_capping_the_pool.machine";
 import { UncappedPoolAnimation } from "./slide_15_not_capping_the_pool/uncapped-pool-animation";
 
-export const metadata = {
-	Id: "not-capping-the-pool",
-	name: "Not capping the pool.",
-	hasSubslides: true,
-} satisfies SlideMetadata;
+export { uncappedPoolMetadata as metadata } from "@/slides/metadata";
 
 export const SlideNotCappingThePool = () => {
 	const actor = useActorRef(uncappedPoolMachine, { id: metadata.Id });

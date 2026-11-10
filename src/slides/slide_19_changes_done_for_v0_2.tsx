@@ -3,7 +3,7 @@ import { motion, useReducedMotion } from "motion/react";
 import { useEffect } from "react";
 
 import Typography from "@/components/ui/typography";
-import type { SlideMetadata } from "@/slides/types";
+import { v02ChangesMetadata as metadata } from "@/slides/metadata";
 import { subslideControlsStore } from "@/stores/subslide-controls";
 
 import { changes, description } from "./slide_19_changes_done_for_v0_2/slide_19_changes_done_for_v0_2.data";
@@ -12,11 +12,7 @@ import {
 	selectVisibleChanges,
 } from "./slide_19_changes_done_for_v0_2/slide_19_changes_done_for_v0_2.machine";
 
-export const metadata = {
-	Id: "changes-done-for-v0-2",
-	name: "Changes done for v0.2",
-	hasSubslides: true,
-} satisfies SlideMetadata;
+export { v02ChangesMetadata as metadata } from "@/slides/metadata";
 
 export const SlideChangesDoneForV02 = () => {
 	const actor = useActorRef(v02ChangesMachine, { id: metadata.Id });

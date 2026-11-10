@@ -1,11 +1,6 @@
 import Typography from "@/components/ui/typography";
-import type { SlideMetadata } from "@/slides/types";
 
-export const metadata = {
-	Id: "proof-of-concept-implementation",
-	name: "Proof of concept implementation",
-	hasSubslides: false,
-} satisfies SlideMetadata;
+export { proofOfConceptMetadata as metadata } from "@/slides/metadata";
 
 export const SlideProofOfConceptImplementation = () => {
 	return (

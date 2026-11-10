@@ -3,17 +3,13 @@ import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import { useEffect } from "react";
 
 import Typography from "@/components/ui/typography";
-import type { SlideMetadata } from "@/slides/types";
+import { cleanupMetadata as metadata } from "@/slides/metadata";
 import { subslideControlsStore } from "@/stores/subslide-controls";
 
 import { integresql, pgtest } from "./slide_11_cleanup_database_trigger/slide_11_cleanup_database_trigger.data";
 import { cleanupDatabaseTriggerMachine } from "./slide_11_cleanup_database_trigger/slide_11_cleanup_database_trigger.machine";
 
-export const metadata = {
-	Id: "cleanup-database-trigger",
-	name: "Cleanup database trigger",
-	hasSubslides: true,
-} satisfies SlideMetadata;
+export { cleanupMetadata as metadata } from "@/slides/metadata";
 
 export const SlideCleanupDatabaseTrigger = () => {
 	const actor = useActorRef(cleanupDatabaseTriggerMachine, { id: metadata.Id });

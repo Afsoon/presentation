@@ -3,7 +3,7 @@ import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import { useEffect } from "react";
 
 import Typography from "@/components/ui/typography";
-import type { SlideMetadata } from "@/slides/types";
+import { databasePoolMetadata as metadata } from "@/slides/metadata";
 import { subslideControlsStore } from "@/stores/subslide-controls";
 
 import { IntegresqlPoolAnimation } from "./slide_10_database_pool_strategy/integresql-pool-animation";
@@ -15,11 +15,7 @@ import {
 	selectPgtestPoolStage,
 } from "./slide_10_database_pool_strategy/slide_10_database_pool_strategy.machine";
 
-export const metadata = {
-	Id: "database-pool-strategy",
-	name: "Database Pool Strategy",
-	hasSubslides: true,
-} satisfies SlideMetadata;
+export { databasePoolMetadata as metadata } from "@/slides/metadata";
 
 export const SlideDatabasePoolStrategy = () => {
 	const actor = useActorRef(databasePoolStrategyMachine, { id: metadata.Id });
