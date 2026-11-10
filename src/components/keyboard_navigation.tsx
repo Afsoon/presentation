@@ -16,11 +16,19 @@ export const KeyboardNavigation = () => {
 	const handleNavigation = (direction: SlideDirection) => {
 		if (!availableNavigations[direction]) return;
 
+		document.activeViewTransition?.skipTransition();
+
 		// Schedule the deferred slide render before attaching its transition type.
 		flushSync(() => navigate(direction));
 		startTransition(() => {
 			addTransitionType(direction === "left" ? "backward" : "forward");
 		});
+	};
+
+	const handleSubslideNavigation = (direction: "up" | "down") => {
+		document.activeViewTransition?.skipTransition();
+		if (direction === "up") up();
+		else down();
 	};
 
 	useHotkey("ArrowLeft", () => handleNavigation("left"), {
@@ -37,13 +45,13 @@ export const KeyboardNavigation = () => {
 		stopPropagation: false,
 	});
 
-	useHotkey("ArrowUp", up, {
+	useHotkey("ArrowUp", () => handleSubslideNavigation("up"), {
 		enabled: canGoUp,
 		ignoreInputs: true,
 		ignoreDefaultPrevented: true,
 		stopPropagation: false,
 	});
-	useHotkey("ArrowDown", down, {
+	useHotkey("ArrowDown", () => handleSubslideNavigation("down"), {
 		enabled: canGoDown,
 		ignoreInputs: true,
 		ignoreDefaultPrevented: true,
@@ -61,7 +69,7 @@ export const KeyboardNavigation = () => {
 				variant="ghost"
 				size="icon"
 				className="col-start-2"
-				onClick={() => up()}
+				onClick={() => handleSubslideNavigation("up")}
 				disabled={!canGoUp}
 			>
 				<ChevronUp aria-hidden="true" strokeWidth={3} className="size-[42px] drop-shadow-sm drop-shadow-black/50" />
@@ -97,7 +105,7 @@ export const KeyboardNavigation = () => {
 				variant="ghost"
 				size="icon"
 				className="col-start-2 row-start-3"
-				onClick={() => down()}
+				onClick={() => handleSubslideNavigation("down")}
 				disabled={!canGoDown}
 			>
 				<ChevronDown aria-hidden="true" strokeWidth={3} className="size-[42px] drop-shadow-sm drop-shadow-black/50" />

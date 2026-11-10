@@ -19,10 +19,15 @@ body {
 	margin: 0;
 }
 
+/* Keep navigation buttons clickable while transition snapshots cover the page. */
+::view-transition {
+	pointer-events: none;
+}
+
 ::view-transition-group(.slide-in),
 ::view-transition-group(.slide-back),
 ::view-transition-group(.slide-progress) {
-	animation-duration: 400ms;
+	animation-duration: var(--slide-transition-duration);
 	animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
 }
 
@@ -42,7 +47,7 @@ body {
 ::view-transition-new(.slide-in),
 ::view-transition-old(.slide-back),
 ::view-transition-new(.slide-back) {
-	animation-duration: 400ms;
+	animation-duration: var(--slide-transition-duration);
 	animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
 	animation-fill-mode: both;
 	mix-blend-mode: normal;
@@ -156,6 +161,7 @@ body {
 }
 
 :root {
+	--slide-transition-duration: 250ms;
 	--background: oklch(0.9755 0.0067 97.351);
 	--foreground: oklch(0.2178 0 0);
 	--card: oklch(1 0 0);
