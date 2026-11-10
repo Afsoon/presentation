@@ -49,7 +49,7 @@ export const SlideReasonsForBuildingPgtest = () => {
 						key={faq.id}
 						value={faq.id}
 						className={cn(
-							"border border-border bg-card shadow-2xl shadow-black/25 dark:shadow-black/50 rounded-2xl flex flex-col group/item data-open:bg-accent data-open:border-transparent transition-colors",
+							"border border-border bg-card text-card-foreground shadow-2xl shadow-black/25 dark:shadow-black/50 rounded-2xl flex flex-col group/item data-open:bg-accent data-open:border-transparent dark:data-open:text-accent-foreground transition-colors",
 							!hasEntered.current &&
 								"animate-in fade-in slide-in-from-bottom-6 duration-700 fill-mode-both motion-reduce:animate-none",
 							!hasEntered.current && faq.id === "strategies" && "delay-100",
@@ -59,13 +59,18 @@ export const SlideReasonsForBuildingPgtest = () => {
 					>
 						<AccordionTrigger className="px-4 py-3 items-center text-base font-semibold hover:no-underline **:data-[slot=accordion-trigger-icon]:hidden cursor-pointer">
 							<div className="flex gap-6 items-center text-left">
-								<span aria-hidden="true" className="reason-number text-muted-foreground tabular-nums shrink-0" />
+								<span
+									aria-hidden="true"
+									className="reason-number text-muted-foreground group-data-open/item:text-inherit tabular-nums shrink-0"
+								/>
 								{faq.question}
 							</div>
-							<PlusIcon className="w-5 h-5 shrink-0 text-muted-foreground group-aria-expanded/accordion-trigger:hidden" />
-							<MinusIcon className="w-5 h-5 shrink-0 text-muted-foreground hidden group-aria-expanded/accordion-trigger:inline" />
+							<PlusIcon className="w-5 h-5 shrink-0 text-muted-foreground group-data-open/item:text-inherit group-aria-expanded/accordion-trigger:hidden" />
+							<MinusIcon className="w-5 h-5 shrink-0 text-muted-foreground group-data-open/item:text-inherit hidden group-aria-expanded/accordion-trigger:inline" />
 						</AccordionTrigger>
-						<AccordionContent className="px-4 pb-5 ps-16 text-muted-foreground">{faq.answer}</AccordionContent>
+						<AccordionContent className="px-4 pb-5 ps-16 text-muted-foreground group-data-open/item:text-inherit">
+							{faq.answer}
+						</AccordionContent>
 					</AccordionItem>
 				))}
 			</Accordion>

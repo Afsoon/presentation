@@ -8,12 +8,16 @@ import type { databasePoolStrategyMachine } from "@/slides/slide_10_database_poo
 import type { cleanupDatabaseTriggerMachine } from "@/slides/slide_11_cleanup_database_trigger/slide_11_cleanup_database_trigger.machine";
 import type { pocResultsMachine } from "@/slides/slide_12_poc_results/slide_12_poc_results.machine";
 import type { extractIoMachine } from "@/slides/slide_14_extract_io_from_manager/slide_14_extract_io_from_manager.machine";
+import type { uncappedPoolMachine } from "@/slides/slide_15_not_capping_the_pool/slide_15_not_capping_the_pool.machine";
+import type { explicitCleanupMachine } from "@/slides/slide_16_explicit_cleanup_database_command/slide_16_explicit_cleanup_database_command.machine";
 import type { v01ResultsMachine } from "@/slides/slide_17_v0_1_results/slide_17_v0_1_results.machine";
 import type { v02ChangesMachine } from "@/slides/slide_19_changes_done_for_v0_2/slide_19_changes_done_for_v0_2.machine";
 import type { thingsThatDidntWorkMachine } from "@/slides/slide_21_things_that_didnt_work/slide_21_things_that_didnt_work.machine";
 import type { nextStepsMachine } from "@/slides/slide_23_next_steps/slide_23_next_steps.machine";
 
 type SlideActor =
+	| ActorRefFrom<typeof explicitCleanupMachine>
+	| ActorRefFrom<typeof uncappedPoolMachine>
 	| ActorRefFrom<typeof nextStepsMachine>
 	| ActorRefFrom<typeof thingsThatDidntWorkMachine>
 	| ActorRefFrom<typeof v02ChangesMachine>

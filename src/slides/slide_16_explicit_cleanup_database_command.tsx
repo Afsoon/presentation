@@ -1,30 +1,57 @@
+import { useActorRef, useSelector } from "@xstate/react";
+import { AnimatePresence, motion, useReducedMotion } from "motion/react";
+import { useEffect } from "react";
+
 import Typography from "@/components/ui/typography";
 import type { SlideMetadata } from "@/slides/types";
+import { subslideControlsStore } from "@/stores/subslide-controls";
+
+import { CleanupRoutingDiagram } from "./slide_16_explicit_cleanup_database_command/cleanup-routing-diagram";
+import { explicitCleanupMachine } from "./slide_16_explicit_cleanup_database_command/slide_16_explicit_cleanup_database_command.machine";
 
 export const metadata = {
 	Id: "explicit-cleanup-database-command",
 	name: "Explicit cleanup database command",
-	hasSubslides: false,
+	hasSubslides: true,
 } satisfies SlideMetadata;
 
 export const SlideExplicitCleanupDatabaseCommand = () => {
+	const actor = useActorRef(explicitCleanupMachine, { id: metadata.Id });
+	useEffect(() => subslideControlsStore.registerActor(actor), [actor]);
+	const stage = useSelector(actor, (snapshot) => snapshot.value);
+	const reduceMotion = useReducedMotion();
 	return (
-		<div className="max-w-4xl space-y-8">
+		<div className="space-y-8">
 			<header className="space-y-3">
 				<Typography level="p-small">v0.1 Implementation.</Typography>
 				<Typography level="h2">Explicit cleanup database command</Typography>
 			</header>
-			<Typography level="p">
-				By default, all databases are disposed of after 60 seconds, or the timeout configured by the user. To dispose of
-				a database earlier, the user must explicitly run{" "}
-				<Typography level="code">SELECT pgtest_release($1::text)</Typography> with{" "}
-				<Typography level="code">[id]</Typography> as the query parameters.
-			</Typography>
-			<Typography level="p">
-				Instead of adding a REST API, administration is handled through SQL by connecting to a special database named{" "}
-				<Typography level="code">pgtest</Typography>. This lets users reuse their PostgreSQL client without creating a
-				separate REST client.
-			</Typography>
+			<div className="min-h-[28rem]">
+				<AnimatePresence initial={false} mode="wait">
+					<motion.div
+						key={stage}
+						initial={{ opacity: 0, y: reduceMotion ? 0 : 16 }}
+						animate={{ opacity: 1, y: 0 }}
+						exit={{ opacity: 0, y: reduceMotion ? 0 : -16 }}
+						transition={{ duration: reduceMotion ? 0 : 0.25, ease: "easeOut" }}
+					>
+						{stage === "routing" ? (
+							<CleanupRoutingDiagram />
+						) : (
+							<div className="max-w-4xl space-y-8">
+								<Typography level="p">
+									By default, all databases are disposed of 60 seconds after they are leased, or after the lifetime
+									configured by the user.
+								</Typography>
+								<Typography level="p">
+									To dispose of a database earlier, the user must explicitly send a SQL command to the PgTest admin
+									panel by connecting to the <Typography level="code">pgtest</Typography> database.
+								</Typography>
+							</div>
+						)}
+					</motion.div>
+				</AnimatePresence>
+			</div>
 		</div>
 	);
 };

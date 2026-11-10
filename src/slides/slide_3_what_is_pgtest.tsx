@@ -12,28 +12,27 @@ export const SlideWhatIsPgtest = () => {
 		<div className="space-y-10">
 			<div className="max-w-3xl space-y-5">
 				<Typography level="h2">What is PgTest?</Typography>
+			</div>
+			<div className="max-w-3xl">
 				<Typography level="p">
-					PgTest is a PostgreSQL proxy that manages isolated databases for integration tests. Connect using a lease ID
-					to get a database cloned from your template
+					PgTest is a PostgreSQL proxy that manages isolated databases for integration tests.
+				</Typography>
+				<Typography level="p">
+					The core idea is to optimize the ability of create database from template in PostgreSQL, allowing to have
+					isolated and fresh database for testing.
 				</Typography>
 			</div>
-			<ol role="list" className="workflow-steps grid gap-6 md:grid-cols-3">
-				<li className="space-y-3 rounded-xl border bg-card shadow-2xl shadow-black/25 dark:shadow-black/50 p-6">
-					<Typography level="h3">Arrange</Typography>
-					<Typography level="p">Initialize a database and preseed it before executing your test suite.</Typography>
-				</li>
-				<li className="space-y-3 rounded-xl border bg-card shadow-2xl shadow-black/25 dark:shadow-black/50 p-6">
-					<Typography level="h3">Act</Typography>
-					<Typography level="p">
-						Lease a database each time you need an isolated database. You only need a unique identifier; the rest is
-						managed by PgTest.
-					</Typography>
-				</li>
-				<li className="space-y-3 rounded-xl border bg-card shadow-2xl shadow-black/25 dark:shadow-black/50 p-6">
-					<Typography level="h3">Assert (to be reviewed)</Typography>
-					<Typography level="p">Execute your test. PgTest will proxy your queries to the leased database.</Typography>
-				</li>
-			</ol>
+			<Typography level="p">
+				Heavily inspired by{" "}
+				<a
+					href="https://github.com/allaboutapps/integresql"
+					target="_blank"
+					rel="noopener noreferrer"
+					className="underline underline-offset-4"
+				>
+					IntegreSQL
+				</a>
+			</Typography>
 		</div>
 	);
 };

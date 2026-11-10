@@ -12,12 +12,11 @@ export const SlideResults = () => (
 		</Typography>
 		<Typography level="p">
 			Tuning PgTest requires only an initial pool size, a threshold to trigger prewarming, and an appropriate batch size
-			for pool growth. Sensible defaults are:
+			for pool growth.
 		</Typography>
-		<ul className="list-disc space-y-6 pl-8 text-xl leading-relaxed sm:text-2xl">
-			<li>Initial pool size: Number of tests running in parallel.</li>
-			<li>Growth threshold: Number of parallel tests / 2.</li>
-			<li>Batch size: Number of tests running in parallel.</li>
-		</ul>
+		<Typography level="p">
+			By default, the initial pool size and batch size should match the number of tests running in parallel, with the
+			prewarming threshold set to half that number.
+		</Typography>
 	</div>
 );

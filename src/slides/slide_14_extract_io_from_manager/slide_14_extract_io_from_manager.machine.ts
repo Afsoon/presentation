@@ -11,7 +11,9 @@ export const extractIoMachine = setup({
 		description: { on: { NEXT: "resourcePolicy" } },
 		resourcePolicy: { on: { PREVIOUS: "description", NEXT: "dedicatedClient" } },
 		dedicatedClient: { on: { PREVIOUS: "resourcePolicy", NEXT: "batchCreation" } },
-		batchCreation: { on: { PREVIOUS: "dedicatedClient" } },
+		batchCreation: { on: { PREVIOUS: "dedicatedClient", NEXT: "before" } },
+		before: { on: { PREVIOUS: "batchCreation", NEXT: "after" } },
+		after: { on: { PREVIOUS: "before" } },
 	},
 });
 const visibleChanges = {
@@ -19,6 +21,8 @@ const visibleChanges = {
 	resourcePolicy: changes.slice(0, 1),
 	dedicatedClient: changes.slice(0, 2),
 	batchCreation: changes,
+	before: [],
+	after: [],
 };
 export function selectVisibleChanges(snapshot: SnapshotFrom<typeof extractIoMachine>): readonly string[] {
 	return visibleChanges[snapshot.value];

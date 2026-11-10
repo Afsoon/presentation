@@ -1,3 +1,4 @@
+import { DatabaseIcon } from "lucide-react";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 
 import { cn } from "@/lib/utils";
@@ -13,7 +14,7 @@ export function PgtestPoolAnimation({ stage }: { stage: PgtestPoolStage }) {
 	return (
 		<div role="group" aria-label="PgTest database pool animation" className="h-96 space-y-3">
 			<RequestInbox requests={frame.requests} />
-			<div className="rounded-xl border bg-muted/50 p-3">
+			<div className="rounded-xl border bg-neutral-200 dark:bg-neutral-700/70 p-3">
 				<div className="mb-2 flex items-center justify-between text-xs font-medium">
 					<span>Pool</span>
 					<span className="text-muted-foreground">{frame.pool.length} / 8 databases</span>
@@ -35,8 +36,8 @@ export function PgtestPoolAnimation({ stage }: { stage: PgtestPoolStage }) {
 										: "border-border bg-card text-foreground",
 								)}
 							>
+								<DatabaseIcon aria-hidden="true" className="size-5 shrink-0" />
 								<span className="text-[10px] font-medium">{database.label}</span>
-								<span>{database.status}</span>
 								{database.requestId && (
 									<span className="text-[10px] font-medium" title={database.requestId.replace("request-", "Req ")}>
 										{database.requestId.replace("request-", "Req ")}
@@ -47,7 +48,7 @@ export function PgtestPoolAnimation({ stage }: { stage: PgtestPoolStage }) {
 					</AnimatePresence>
 				</div>
 			</div>
-			<div className="h-28 rounded-xl border bg-muted/50 p-3" aria-label="Background jobs">
+			<div className="h-28 rounded-xl border bg-neutral-200 dark:bg-neutral-700/70 p-3" aria-label="Background jobs">
 				<div className="mb-2 text-xs font-medium">Background jobs</div>
 				<AnimatePresence initial={false}>
 					{frame.backgroundJob && (

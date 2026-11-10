@@ -1,8 +1,8 @@
 export const integresql = {
 	title: "IntegreSQL",
 	content:
-		"Besides tuning the lease lifetime, the user can skip recreation or immediately recreate a database in the pool.",
-	problem: "Tuning IntegreSQL requires finding an adequate pool size, lease lifetime, and per-test cleanup strategy.",
+		"Database cleanup is based on a user-defined lifetime, an explicit request to skip cleanup, or an explicit request for immediate cleanup.",
+	problem: "Cleanup is time-sensitive.",
 };
 export const pgtest = {
 	title: "PgTest",

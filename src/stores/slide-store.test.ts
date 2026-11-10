@@ -37,11 +37,11 @@ describe("slide store", () => {
 			{ Id: "poc-results", name: "PoC Results", hasSubslides: true, position: 11 },
 			{ Id: "v0-1-implementation", name: "v0.1 implementation", hasSubslides: false, position: 12 },
 			{ Id: "extract-io-from-manager", name: "Extract IO from manager and split it", hasSubslides: true, position: 13 },
-			{ Id: "not-capping-the-pool", name: "Not capping the pool.", hasSubslides: false, position: 14 },
+			{ Id: "not-capping-the-pool", name: "Not capping the pool.", hasSubslides: true, position: 14 },
 			{
 				Id: "explicit-cleanup-database-command",
 				name: "Explicit cleanup database command",
-				hasSubslides: false,
+				hasSubslides: true,
 				position: 15,
 			},
 			{ Id: "v0-1-results", name: "v0.1 Results", hasSubslides: true, position: 16 },
