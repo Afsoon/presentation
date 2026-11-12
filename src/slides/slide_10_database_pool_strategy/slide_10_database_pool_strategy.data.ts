@@ -1,6 +1,6 @@
 export const integresql = {
 	title: "IntegreSQL",
-	content: "The user can define a minimum number of databases and a maximum pool size.",
+	content: "Users can configure the minimum and maximum database pool sizes.",
 	problem: "Once the initial slots are leased, new requests are handled on demand.",
 };
 

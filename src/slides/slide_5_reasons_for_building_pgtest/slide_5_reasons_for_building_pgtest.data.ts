@@ -1,6 +1,6 @@
 export type SideListItem = { text: string; href?: string };
 
-export type ReasonId = "strategies" | "issues" | "rust";
+export type ReasonId = "strategies" | "issues" | "rust" | "ai";
 
 export const reasons: readonly { id: ReasonId; question: string; answer: string }[] = [
 	{
@@ -18,6 +18,12 @@ export const reasons: readonly { id: ReasonId; question: string; answer: string 
 		id: "rust",
 		question: "Excuse to use Rust.",
 		answer: "I wanted to learn Rust by building something I would use.",
+	},
+	{
+		id: "ai",
+		question: "AI writing code",
+		answer:
+			"With AI writing more code, it’s increasingly important to detect as early as possible whether that code is correct.",
 	},
 ];
 

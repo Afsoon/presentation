@@ -39,8 +39,8 @@ export const SlideExplicitCleanupDatabaseCommand = () => {
 								</Typography>
 								<Typography level="p">
 									I exposed early cleanup as a SQL command in the PgTest admin panel, reached through the{" "}
-									<Typography level="code">pgtest</Typography> database. This kept cleanup within the existing
-									PostgreSQL client.
+									<Typography level="code">pgtest</Typography> database. This lets users reuse their existing PostgreSQL
+									client for admin operations instead of building a separate REST client.
 								</Typography>
 							</div>
 						)}

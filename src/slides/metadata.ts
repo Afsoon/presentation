@@ -45,7 +45,8 @@ export const reasonsForBuildingPgtestMetadata = {
 • First bug: URL encoding of the template name caused problems with non-URL-safe characters.
 • Second bug: PostgreSQL truncates database names to 63 bytes by default. IntegreSQL searched for the full name instead of the truncated name.
 • Maintenance: Last commit was two years ago.
-• Rust: I wanted to learn by building something I would use.`,
+• Rust: I wanted to learn by building something I would use.
+• With AI writing more code, detecting incorrect behavior as early as possible matters even more.`,
 } satisfies SlideMetadata;
 
 export const architectureMetadata = {
@@ -157,7 +158,7 @@ export const explicitCleanupMetadata = {
 	notes: `40s
 • I moved to an explicit cleanup command, with a configurable lifetime as a fallback. The default is 30 seconds.
 • I stopped treating the last disconnection as the end of a test.
-• I exposed cleanup through the pgtest control database, using the same PostgreSQL client.
+• I exposed cleanup through the pgtest control database so users can reuse their PostgreSQL client for admin operations instead of building a separate REST client.
 • The diagram shows how I separated test traffic from admin commands.`,
 } satisfies SlideMetadata;
 
@@ -183,6 +184,7 @@ export const v02ChangesMetadata = {
 	notes: `50s
 • I adopted Pingora, Cloudflare's framework for building proxy servers.
 • I moved lease tracking into a concurrent, lock-free structure and reduced pool states from four to two.
+• This let me remove the manager worker entirely, reducing the architecture from three workers to two: creation and cleanup.
 • I batched messages between I/O workers and simplified tracking of waiting requests.`,
 } satisfies SlideMetadata;
 

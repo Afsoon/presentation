@@ -52,6 +52,7 @@ export const SlideReasonsForBuildingPgtest = () => {
 							!hasEntered.current && faq.id === "strategies" && "delay-100",
 							!hasEntered.current && faq.id === "issues" && "delay-200",
 							!hasEntered.current && faq.id === "rust" && "delay-300",
+							!hasEntered.current && faq.id === "ai" && "delay-400",
 						)}
 					>
 						<AccordionTrigger className="px-4 py-3 items-center text-base font-semibold hover:no-underline **:data-[slot=accordion-trigger-icon]:hidden cursor-pointer">

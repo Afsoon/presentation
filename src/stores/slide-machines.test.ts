@@ -55,6 +55,7 @@ describe("reasons machine", () => {
 				display: { activeReason: "issues", rightItems: issues.slice(0, index + 1), rightLabel: "IntegreSQL issues" },
 			})),
 			{ state: "rust", display: { activeReason: "rust", rightItems: [], rightLabel: "Rust" } },
+			{ state: "ai", display: { activeReason: "ai", rightItems: [], rightLabel: "AI writing code" } },
 		];
 		expect(actor.getSnapshot().can({ type: "PREVIOUS" })).toBe(false);
 		actor.send({ type: "PREVIOUS" });
@@ -87,6 +88,15 @@ describe("reasons machine", () => {
 		actor.send({ type: "PREVIOUS" });
 		expect(actor.getSnapshot().value).toEqual({ issues: "maintenance" });
 		expect(selectReasonsDisplay(actor.getSnapshot()).rightItems).toEqual(issues);
+		actor.send({ type: "SELECT_REASON", reason: "ai" });
+		expect(selectReasonsDisplay(actor.getSnapshot())).toEqual({
+			activeReason: "ai",
+			rightItems: [],
+			rightLabel: "AI writing code",
+		});
+		expect(actor.getSnapshot().can({ type: "NEXT" })).toBe(false);
+		actor.send({ type: "PREVIOUS" });
+		expect(actor.getSnapshot().value).toBe("rust");
 		actor.send({ type: "SELECT_REASON", reason: "strategies" });
 		expect(actor.getSnapshot().value).toEqual({ strategies: "transactions" });
 		for (const reason of ["unknown", ""]) {

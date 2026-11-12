@@ -14,6 +14,7 @@ export const reasonsMachine = setup({
 			{ guard: ({ event }) => event.reason === "strategies", target: ".strategies.transactions" },
 			{ guard: ({ event }) => event.reason === "issues", target: ".issues.tuning" },
 			{ guard: ({ event }) => event.reason === "rust", target: ".rust" },
+			{ guard: ({ event }) => event.reason === "ai", target: ".ai" },
 		],
 	},
 	states: {
@@ -38,7 +39,8 @@ export const reasonsMachine = setup({
 				maintenance: { on: { PREVIOUS: "longHashes", NEXT: "#reasons-for-building-pgtest.rust" } },
 			},
 		},
-		rust: { on: { PREVIOUS: "issues.maintenance" } },
+		rust: { on: { PREVIOUS: "issues.maintenance", NEXT: "ai" } },
+		ai: { on: { PREVIOUS: "rust" } },
 	},
 });
 
@@ -60,10 +62,12 @@ const issueItems = {
 
 type ReasonsDisplay = { activeReason: ReasonId; rightItems: readonly SideListItem[]; rightLabel: string };
 const rustDisplay: ReasonsDisplay = { activeReason: "rust", rightItems: [], rightLabel: "Rust" };
+const aiDisplay: ReasonsDisplay = { activeReason: "ai", rightItems: [], rightLabel: "AI writing code" };
 
 export function selectReasonsDisplay(snapshot: SnapshotFrom<typeof reasonsMachine>): ReasonsDisplay {
 	const state = snapshot.value;
 	if (state === "rust") return rustDisplay;
+	if (state === "ai") return aiDisplay;
 	if ("strategies" in state) {
 		return {
 			activeReason: "strategies",
